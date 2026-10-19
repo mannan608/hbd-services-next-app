@@ -1,26 +1,94 @@
+
 @import "tailwindcss";
 
+/* Brand and secondary color palettes */
+@theme {
+  /* Brand */
+  --color-brand-25: #f5f9fe;
+  --color-brand-50: #eef5fc;
+  --color-brand-100: #d7e7f7;
+  --color-brand-200: #b8d3ef;
+  --color-brand-300: #8cb7e3;
+  --color-brand-400: #5b95d2;
+  --color-brand-500: #1968b2;
+  --color-brand-600: #155b9d;
+  --color-brand-700: #114b82;
+  --color-brand-800: #0d3c68;
+  --color-brand-900: #0a3053;
+  --color-brand-950: #061d34;
+
+  /* Secondary */
+  --color-secondary-500: #182f5a;
+}
+
+/* Application theme variables */
 :root {
+  color-scheme: light;
+
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
+    color-scheme: dark;
+
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
 
+/* Tailwind theme integration */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background-color: var(--color-brand-200);
+  color: var(--color-brand-950);
+}
+
+::-moz-selection {
+  background-color: var(--color-brand-200);
+  color: var(--color-brand-950);
 }
