@@ -1,6 +1,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import logo from "@/app/assets/brand/logo.webp";
 
 const footerSections = [
   {
@@ -109,7 +110,7 @@ export default function Footer({ year }: FooterProps) {
               className="mb-5 inline-flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
             >
               <Image
-                src="/logo.png"
+                src={logo}
                 alt="HBD Services"
                 width={180}
                 height={70}

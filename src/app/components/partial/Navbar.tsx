@@ -260,7 +260,7 @@ export default function Navbar({ user = null }: NavbarProps) {
                                 <Link
                                     href="/register"
                                     tabIndex={mobileMenuOpen ? 0 : -1}
-                                    className="flex w-full items-center justify-center rounded-xl bg-brand-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                                    className="uppercase flex w-full items-center justify-center rounded-xl bg-brand-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
                                 >
                                     Sign Up Free
                                 </Link>
