@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import logo from "@/app/assets/brand/logo.webp";
 
 type NavItem = {
     label: string;
@@ -144,7 +145,7 @@ export default function Navbar({ user = null }: NavbarProps) {
                         aria-label="Nubex College home"
                     >
                         <Image
-                            src="/logo.webp"
+                            src={logo}
                             alt="Nubex College"
                             width={160}
                             height={70}
