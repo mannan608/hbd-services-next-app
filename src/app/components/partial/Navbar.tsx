@@ -33,9 +33,10 @@ export default function Navbar({ user = null }: NavbarProps) {
     const pathname = usePathname();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    useEffect(() => {
+    const closeMobileMenu = () => {
         setMobileMenuOpen(false);
-    }, [pathname]);
+    };
+
 
     useEffect(() => {
         if (!mobileMenuOpen) return;
@@ -142,11 +143,11 @@ export default function Navbar({ user = null }: NavbarProps) {
                     <Link
                         href="/"
                         className="relative flex shrink-0 items-center"
-                        aria-label="Nubex College home"
+                        aria-label="Hbd Services"
                     >
                         <Image
                             src={logo}
-                            alt="Nubex College"
+                            alt="Hbd Services"
                             width={160}
                             height={70}
                             priority
@@ -243,7 +244,7 @@ export default function Navbar({ user = null }: NavbarProps) {
                                     tabIndex={mobileMenuOpen ? 0 : -1}
                                     className={linkClasses(item.href, true)}
                                     aria-current={isActive(item.href) ? "page" : undefined}
-                                >
+                                    onClick={closeMobileMenu} >
                                     {item.label}
                                     {isActive(item.href) && (
                                         <span
@@ -259,8 +260,9 @@ export default function Navbar({ user = null }: NavbarProps) {
                             <div className="mt-4 border-t border-neutral-200 pt-4 dark:border-neutral-800">
                                 <Link
                                     href="/register"
+                                    onClick={closeMobileMenu}
                                     tabIndex={mobileMenuOpen ? 0 : -1}
-                                    className="uppercase flex w-full items-center justify-center rounded-xl bg-brand-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+                                    className="uppercase flex w-full items-center justify-center rounded-xl bg-brand-600 px-5 py-3 text-sm font-semibold text-white"
                                 >
                                     Sign Up Free
                                 </Link>

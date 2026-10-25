@@ -2,22 +2,42 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { Scale, Users, FileCheck, GraduationCap, ArrowRight } from 'lucide-react';
 
 const suggestions = [
-  "Nursing",
-  "Master of IT",
-  "MBA",
-  "Cyber Security",
-  "Foundation",
+  { name: "Australia", code: "AU", flag: "🇦🇺" },
+  { name: "USA", code: "US", flag: "🇺🇸" },
+  { name: "UK", code: "GB", flag: "🇬🇧" },
+  { name: "Canada", code: "CA", flag: "🇨🇦" },
+  { name: "New Zealand", code: "NZ", flag: "🇳🇿" },
+  { name: "Malaysia", code: "MY", flag: "🇲🇾" },
 ];
 
 const features = [
-  { title: "Compare", description: "Courses & fees", icon: "square" },
-  { title: "Connect", description: "With verified experts", icon: "circle" },
-  { title: "Apply", description: "With confidence", icon: "square" },
-  { title: "Succeed", description: "In Australia", icon: "circle" },
+  {
+    title: "Compare",
+    description: "Courses & fees",
+    icon: Scale,
+    accentColor: "bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400",
+  },
+  {
+    title: "Connect",
+    description: "With verified experts",
+    icon: Users,
+    accentColor: "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400",
+  },
+  {
+    title: "Apply",
+    description: "With confidence",
+    icon: FileCheck,
+    accentColor: "bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-400",
+  },
+  {
+    title: "Succeed",
+    description: "In Australia",
+    icon: GraduationCap,
+    accentColor: "bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400",
+  },
 ];
 
 const ASSETS = {
@@ -27,22 +47,9 @@ const ASSETS = {
 };
 
 export default function HeroSection() {
-  const [search, setSearch] = useState("");
-  const router = useRouter();
-
-  function handleSearch(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const query = search.trim();
-
-    if (query) {
-      router.push(`/courses?search=${encodeURIComponent(query)}`);
-    }
-  }
 
   return (
-    <section className="relative isolate overflow-hidden bg-[linear-gradient(115deg,#F5FBFB_0%,#EAF7F6_40%,#D7EFEC_100%)] font-sans text-[#4A5768]">
-
+    <section className="relative isolate overflow-hidden bg-[linear-gradient(115deg,#F5F9FE_0%,#EEF5FC_40%,#D7E7F7_100%)] font-sans text-neutral-600">
       {/* Background photograph */}
       <div
         aria-hidden="true"
@@ -50,37 +57,35 @@ export default function HeroSection() {
         style={{
           backgroundImage: `url("${ASSETS.background}")`,
           maskImage:
-            "linear-gradient(90deg,transparent 0%,black 42%)",
+            "linear-gradient(90deg,transparent 0%,#000 42%)",
           WebkitMaskImage:
-            "linear-gradient(90deg,transparent 0%,black 42%)",
+            "linear-gradient(90deg,transparent 0%,#000 42%)",
         }}
       />
 
-      {/* Right teal radial accent */}
+      {/* Right decorative radial gradient */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-80 -right-35 z-1 h-205 w-205 rounded-full bg-[radial-gradient(circle_at_40%_35%,rgba(31,167,154,.85),rgba(11,154,139,.55)_60%,rgba(11,154,139,0)_72%)]"
+        className="pointer-events-none absolute -bottom-80 -right-35 z-1 h-205 w-205 rounded-full bg-[radial-gradient(circle_at_40%_35%,rgba(91,149,210,.75),rgba(25,104,178,.45)_60%,rgba(25,104,178,0)_72%)]"
       />
 
-      {/* Large left outline */}
+      {/* Left circular outline */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-65 top-14.5 z-1 h-160 w-160 rounded-full border border-[rgba(11,154,139,.18)]"
+        className="pointer-events-none absolute -left-65 top-15 z-1 h-160 w-160 rounded-full border border-brand-200/70"
       />
 
-      {/* Bottom-left circle */}
+      {/* Bottom-left accent */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-45 -left-45 z-1 h-130 w-130 rounded-full bg-[rgba(127,214,203,.16)]"
+        className="pointer-events-none absolute -bottom-45 -left-45 z-1 h-130 w-130 rounded-full bg-brand-100/60"
       />
 
       <div className="relative z-10">
-
-        {/* Main hero container */}
-        <div className="relative mx-auto min-h-155 max-w-310 px-11 pb-0 pt-7.75 max-lg:px-8 max-md:min-h-0 max-md:px-5 max-md:pt-8">
-
-          {/* Decorative background image */}
-          <div className="pointer-events-none absolute right-5 top-33 z-1 w-[min(44%,520px)] max-md:hidden">
+        {/* Main hero content */}
+        <div className="relative mx-auto min-h-130 max-w-310 px-11 pb-0 pt-8.5 max-lg:px-8 max-md:min-h-0 max-md:px-5 max-md:pt-8">
+          {/* Decorative image */}
+          <div className="pointer-events-none absolute right-5 top-15 z-1 w-[min(44%,520px)] max-md:hidden">
             <Image
               src={ASSETS.decorative}
               alt=""
@@ -92,7 +97,7 @@ export default function HeroSection() {
             />
           </div>
 
-          {/* Student image: keep it layered behind the information card */}
+          {/* Student image */}
           <div className="pointer-events-none absolute bottom-0 right-2 z-2 w-[min(46%,560px)] max-md:hidden">
             <Image
               src={ASSETS.student}
@@ -100,114 +105,58 @@ export default function HeroSection() {
               width={560}
               height={500}
               priority
-              className="block h-auto w-full -scale-x-100 drop-shadow-[0_34px_46px_rgba(6,60,55,.28)]"
+              className="block h-auto w-full -scale-x-100 drop-shadow-[0_34px_46px_rgba(13,60,104,.25)]"
             />
           </div>
 
-          {/* Floating information card */}
-          <div className="absolute right-11 top-99.25 z-4 w-52.5 rounded-[18px] bg-white p-[22px_24px] shadow-[0_26px_60px_-26px_rgba(6,60,55,.42)] max-lg:right-6 max-md:hidden">
-            <span className="mb-4 grid h-9.5 w-9.5 place-items-center rounded-[10px] bg-[#EDF8F6]">
-              <span className="block h-3.75 w-3.75 rotate-45 rounded-xs bg-[#0B9A8B]" />
-            </span>
 
-            <div className="mb-1.5 text-[16px] font-extrabold tracking-[-0.02em] text-[#0F1B2D]">
-              Your journey
-            </div>
-
-            <p className="text-[14px] leading-normal text-[#4A5768]">
-              guided by experts,
-              <br />
-              powered by insights.
-            </p>
-          </div>
-
-          {/* Left content */}
+          {/* Hero text */}
           <div className="relative z-3 max-w-[min(600px,52%)] max-md:max-w-none">
-
             {/* Guest browsing badge */}
-            <div className="mb-7.5 inline-flex items-center gap-2.5 rounded-full border border-[rgba(11,154,139,.24)] bg-white/70 px-4.5 py-4.5 max-md:mb-6 max-sm:px-3">
-              <span className="block h-1.75 w-1.75 shrink-0 rounded-full bg-[#0B9A8B]" />
+            <div className="mb-7.5 inline-flex items-center gap-2.5 rounded-full border border-brand-200 bg-white/70 px-4.5 py-2 max-md:mb-6 max-sm:px-3">
+              <span className="block h-1.75 w-1.75 shrink-0 rounded-full bg-brand-500" />
 
-              <span className="text-[13px] font-semibold text-[#33465C]">
+              <span className="text-[13px] font-semibold text-secondary-500">
                 Guest browsing — no account needed
               </span>
             </div>
 
-            {/* Main heading */}
-            <h1 className="mb-6 text-[58px] font-extrabold leading-[1.1] tracking-[-0.035em] text-[#0F1B2D] text-pretty max-lg:text-[48px] max-sm:text-[38px]">
-              Find your course in{" "}
-              <span className="text-[#0B9A8B]">Australia</span>, then apply
-              with an{" "}
-              <span className="text-[#0B9A8B]">expert</span> beside you
+            <h1 className="mb-6 text-[58px] font-extrabold leading-[1.1] tracking-[-0.035em] text-secondary-500 text-pretty max-lg:text-[48px] max-md:max-w-170 max-sm:text-[38px]">
+              Build Your Future with{" "}
+              <span className="text-brand-500">HBD Services</span>
+              — your trusted partner.
             </h1>
 
             {/* Description */}
-            <p className="mb-[8.5 max-w-[48ch] text-[17px] leading-[1.65] text-[#4A5768] max-md:mb-6 max-sm:text-[15px]">
+            <p className="mb-[8.5 max-w-[48ch] text-[17px] leading-[1.65] text-neutral-600 max-md:mb-6 max-sm:text-[15px]">
               Compare tuition, English scores, intakes and scholarships across
               620+ institutions — then talk to a verified counsellor for free.
             </p>
 
-            {/* Search bar */}
-            <form
-              onSubmit={handleSearch}
-              role="search"
-              className="flex items-center gap-3 rounded-full border border-[#E2E7EA] bg-white p-2 shadow-[0_20px_44px_-26px_rgba(6,60,55,.35)] max-sm:flex-wrap max-sm:rounded-2xl"
-            >
-              <label htmlFor="course-search" className="sr-only">
-                Search courses
-              </label>
-
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.7"
-                aria-hidden="true"
-                className="ml-4 h-4.25 w-4.25 shrink-0 text-[#6B7889] max-sm:ml-2"
-              >
-                <circle cx="11" cy="11" r="6.5" />
-                <path d="m16 16 4 4" />
-              </svg>
-
-              <input
-                id="course-search"
-                type="search"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search courses, e.g. Master of IT in Melbourne"
-                className="h-10.5 min-w-0 flex-1 border-0 bg-transparent text-[15px] text-[#0F1B2D] outline-none placeholder:text-[#6B7889]/70"
-              />
-
-              <button
-                type="submit"
-                disabled={!search.trim()}
-                className="shrink-0 rounded-full border-0 bg-[#0B9A8B] px-6 py-3.25 text-[15px] font-bold text-white transition-colors hover:bg-[#098376] disabled:cursor-not-allowed disabled:opacity-60 max-sm:w-full"
-              >
-                Search courses
-              </button>
-            </form>
-
             {/* Suggested courses */}
-            <div className="mt-4.5 flex flex-wrap gap-2.5">
+            <div className="mt-4 flex flex-wrap gap-2.5 items-center">
               {suggestions.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  onClick={() => setSearch(item)}
-                  aria-pressed={search === item}
-                  className={`rounded-lg border px-4 py-2.25 text-[14px] font-semibold transition-colors ${
-                    search === item
-                      ? "border-[#0B9A8B] bg-[#EDF8F6] text-[#0B9A8B]"
-                      : "border-[#D3E4E2] bg-white/80 text-[#33465C] hover:bg-white"
-                  }`}
+                <span
+                  key={item.name}
+                  className="inline-flex items-center gap-2 rounded-full border border-brand-200/60 bg-brand-50/70 px-3.5 py-1.5 text-xs font-semibold text-brand-700 shadow-2xs backdrop-blur-xs transition-all duration-200 hover:bg-brand-100/80 hover:border-brand-300 hover:shadow-xs hover:-translate-y-0.5 cursor-pointer"
                 >
-                  {item}
-                </button>
+
+                  <img
+                    src={`https://flagcdn.com/w20/${item.code.toLowerCase()}.png`}
+                    srcSet={`https://flagcdn.com/w40/${item.code.toLowerCase()}.png 2x`}
+                    width="16"
+                    height="12"
+                    alt={`${item.name} flag`}
+                    className="h-3.5 w-4.5 rounded-xs object-cover shadow-2xs"
+                  />
+
+                  <span>{item.name}</span>
+                </span>
               ))}
             </div>
           </div>
 
-          {/* Mobile student image */}
+          {/* Student image on mobile */}
           <div className="relative z-2 mx-auto mt-8 hidden w-full max-w-110 max-md:block">
             <Image
               src={ASSETS.student}
@@ -219,52 +168,41 @@ export default function HeroSection() {
             />
           </div>
 
-          {/* Mobile information card */}
-          <div className="relative z-4 mx-auto mt-5 hidden w-full max-w-75 rounded-[18px] bg-white p-[22px_24px] shadow-[0_26px_60px_-26px_rgba(6,60,55,.42)] max-md:block">
-            <span className="mb-4 grid h-9.5 w-9.5 place-items-center rounded-[10px] bg-[#EDF8F6]">
-              <span className="block h-3.75 w-3.75 rotate-45 rounded-xs bg-[#0B9A8B]" />
-            </span>
 
-            <div className="mb-1.5 text-[16px] font-extrabold text-[#0F1B2D]">
-              Your journey
-            </div>
-
-            <p className="text-[14px] leading-normal text-[#4A5768]">
-              guided by experts,
-              <br />
-              powered by insights.
-            </p>
-          </div>
         </div>
 
-        {/* Feature cards */}
-        <div className="relative z-5 mx-auto grid max-w-310 grid-cols-4 gap-4.5 px-11 pb-8.5 pt-11 max-lg:grid-cols-2 max-lg:px-8 max-md:pt-8 max-sm:grid-cols-1 max-sm:gap-3 max-sm:px-5">
-          {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="flex min-h-21.5 items-center gap-3.5 rounded-2xl border border-white bg-white/95 p-[18px_20px] shadow-[0_20px_44px_-30px_rgba(6,60,55,.5)]"
-            >
-              <span className="grid h-9.5 w-9.5 shrink-0 place-items-center rounded-[10px] bg-[#EDF8F6]">
-                <span
-                  className={`block h-3.5 w-3.5 bg-[#0B9A8B] ${
-                    feature.icon === "circle"
-                      ? "rounded-full"
-                      : "rounded-[3px]"
-                  }`}
-                />
-              </span>
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {features.map((feature) => {
+              const IconComponent = feature.icon;
+              return (
+                <div
+                  key={feature.title}
+                  className="group relative flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/50 dark:border-slate-800 dark:bg-slate-900/80 dark:hover:shadow-none"
+                >
+                  {/* Icon Container with subtle animation */}
+                  <div
+                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${feature.accentColor}`}
+                  >
+                    <IconComponent className="h-6 w-6 stroke-[2]" />
+                  </div>
 
-              <div>
-                <div className="text-[16px] font-extrabold tracking-[-0.02em] text-[#0F1B2D]">
-                  {feature.title}
+                  {/* Text Content */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-base font-bold tracking-tight text-slate-900 dark:text-white">
+                        {feature.title}
+                      </h3>
+                      <ArrowRight className="h-4 w-4 text-slate-400 opacity-0 transition-all duration-300 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0" />
+                    </div>
+                    <p className="mt-0.5 text-xs font-medium text-slate-500 dark:text-slate-400 truncate">
+                      {feature.description}
+                    </p>
+                  </div>
                 </div>
-
-                <div className="mt-0.75 text-[14px] text-[#6B7889]">
-                  {feature.description}
-                </div>
-              </div>
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
