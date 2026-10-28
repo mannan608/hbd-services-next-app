@@ -2,42 +2,13 @@
 "use client";
 
 import Image from "next/image";
-import { Scale, Users, FileCheck, GraduationCap, ArrowRight } from 'lucide-react';
 
 const suggestions = [
   { name: "Australia", code: "AU", flag: "🇦🇺" },
   { name: "USA", code: "US", flag: "🇺🇸" },
   { name: "UK", code: "GB", flag: "🇬🇧" },
   { name: "Canada", code: "CA", flag: "🇨🇦" },
-  { name: "New Zealand", code: "NZ", flag: "🇳🇿" },
   { name: "Malaysia", code: "MY", flag: "🇲🇾" },
-];
-
-const features = [
-  {
-    title: "Compare",
-    description: "Courses & fees",
-    icon: Scale,
-    accentColor: "bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400",
-  },
-  {
-    title: "Connect",
-    description: "With verified experts",
-    icon: Users,
-    accentColor: "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400",
-  },
-  {
-    title: "Apply",
-    description: "With confidence",
-    icon: FileCheck,
-    accentColor: "bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-400",
-  },
-  {
-    title: "Succeed",
-    description: "In Australia",
-    icon: GraduationCap,
-    accentColor: "bg-indigo-50 text-indigo-600 dark:bg-indigo-950/50 dark:text-indigo-400",
-  },
 ];
 
 const ASSETS = {
@@ -68,18 +39,7 @@ export default function HeroSection() {
         aria-hidden="true"
         className="pointer-events-none absolute -bottom-80 -right-35 z-1 h-205 w-205 rounded-full bg-[radial-gradient(circle_at_40%_35%,rgba(91,149,210,.75),rgba(25,104,178,.45)_60%,rgba(25,104,178,0)_72%)]"
       />
-
-      {/* Left circular outline */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-65 top-15 z-1 h-160 w-160 rounded-full border border-brand-200/70"
-      />
-
-      {/* Bottom-left accent */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-45 -left-45 z-1 h-130 w-130 rounded-full bg-brand-100/60"
-      />
+    
 
       <div className="relative z-10">
         {/* Main hero content */}
@@ -98,7 +58,7 @@ export default function HeroSection() {
           </div>
 
           {/* Student image */}
-          <div className="pointer-events-none absolute bottom-0 right-2 z-2 w-[min(46%,560px)] max-md:hidden">
+          <div className="pointer-events-none absolute -bottom-2 right-2 z-20 w-[min(46%,560px)] max-md:hidden">
             <Image
               src={ASSETS.student}
               alt="Student studying with a laptop"
@@ -167,43 +127,7 @@ export default function HeroSection() {
               className="block h-auto w-full object-contain"
             />
           </div>
-
-
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {features.map((feature) => {
-              const IconComponent = feature.icon;
-              return (
-                <div
-                  key={feature.title}
-                  className="group relative flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-white/80 p-5 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/50 dark:border-slate-800 dark:bg-slate-900/80 dark:hover:shadow-none"
-                >
-                  {/* Icon Container with subtle animation */}
-                  <div
-                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${feature.accentColor}`}
-                  >
-                    <IconComponent className="h-6 w-6 stroke-[2]" />
-                  </div>
-
-                  {/* Text Content */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-base font-bold tracking-tight text-slate-900 dark:text-white">
-                        {feature.title}
-                      </h3>
-                      <ArrowRight className="h-4 w-4 text-slate-400 opacity-0 transition-all duration-300 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0" />
-                    </div>
-                    <p className="mt-0.5 text-xs font-medium text-slate-500 dark:text-slate-400 truncate">
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        </div>      
       </div>
     </section>
   );
