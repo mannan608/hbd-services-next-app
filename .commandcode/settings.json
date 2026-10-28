@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Shell(npx tsc --noEmit)"
+      "Shell(npx tsc --noEmit)",
+      "Shell(Get-ChildItem:*)",
+      "Shell(Select-String:*)",
+      "Shell(Select-Object:*)",
+      "powershell"
     ],
     "deny": [],
     "defaultMode": "default"
