@@ -6,6 +6,7 @@ import FeaturesSection from "./components/hero/FeaturesSection";
 import HeroSection from "./components/hero/HeroSection";
 import LanguageAcademySection from "./components/LanguageAcademy/LanguageAcademySection";
 import UniversityMarqueeSection from "./components/Patners/UniversityMarqueeSection";
+import ReviewsSection from "./components/Reviews/ReviewsSection";
 import ServicesSection from "./components/Services/ServicesSection";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
       <UniversityMarqueeSection />
       <AchieversVoices />
       <CertificationAwardsSection />
+      <ReviewsSection />
     </div>
   );
 }
