@@ -1,604 +1,615 @@
 
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useRef, useState } from "react";
 import {
-  Send,
-  Sparkles,
-  GraduationCap,
-  Building2,
-  Calendar,
-  Award,
-  CheckCircle2,
-  Phone,
-  Mail,
-  MapPin,
-  User,
-  ShieldCheck,
+  ArrowLeft,
   ArrowRight,
-  Globe2,
+  Check,
+  GraduationCap,
+  UserRound,
+  Award,
+  Send,
+  ChevronDown,
 } from "lucide-react";
-import { useInView } from "@/hooks/useInView";
+
+type FormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  city: string;
+  educationLevel: string;
+  institutionName: string;
+  hasEnglishTest: string;
+  testName: string;
+  overallScore: string;
+  tentativeExamDate: string;
+  consent: boolean;
+};
+
+const initialFormData: FormData = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  city: "",
+  educationLevel: "",
+  institutionName: "",
+  hasEnglishTest: "",
+  testName: "",
+  overallScore: "",
+  tentativeExamDate: "",
+  consent: false,
+};
+
+const steps = [
+  { title: "Personal Details", icon: UserRound },
+  { title: "Academic Profile", icon: GraduationCap },
+  { title: "English Proficiency", icon: Award },
+];
+
+const inputClass =
+  "h-12 w-full rounded-xl border border-slate-200 bg-white px-3.5 text-sm text-[#0B1D36] outline-none transition-all placeholder:text-slate-400 hover:border-[#C9A84C]/60 focus:border-[#C9A84C] focus:ring-4 focus:ring-[#C9A84C]/10";
+
+const labelClass =
+  "mb-2 block text-[13px] font-semibold text-slate-700";
+
+const requiredMark = <span className="ml-0.5 text-rose-500">*</span>;
 
 const ConsultationForm = () => {
-  const { ref: sectionRef, visible: sectionVisible } = useInView();
-
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    city: "",
-    educationLevel: "",
-    institutionName: "",
-    hasEnglishTest: "",
-    testName: "",
-    overallScore: "",
-    tentativeExamDate: "",
-    consent: false,
-  });
-
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState<FormData>(initialFormData);
   const [submitted, setSubmitted] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement
+    >
   ) => {
     const { name, value, type } = e.target;
 
     if (type === "checkbox") {
-      const checked = (e.target as HTMLInputElement).checked;
-      setFormData((prev) => ({ ...prev, [name]: checked }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({
+        ...prev,
+        [name]: (e.target as HTMLInputElement).checked,
+      }));
+      return;
     }
+
+    setFormData((prev) => {
+      const updated = { ...prev, [name]: value };
+
+      if (name === "hasEnglishTest") {
+        updated.testName = "";
+        updated.overallScore = "";
+        updated.tentativeExamDate = "";
+      }
+
+      if (name === "educationLevel" && !value) {
+        updated.institutionName = "";
+      }
+
+      return updated;
+    });
+  };
+
+  const validateCurrentStep = () => {
+    const panel = formRef.current?.querySelector(
+      "[data-active-step]"
+    );
+
+    if (!panel) return false;
+
+    const fields = panel.querySelectorAll<
+      HTMLInputElement | HTMLSelectElement
+    >("[required]");
+
+    for (const field of fields) {
+      if (!field.checkValidity()) {
+        field.reportValidity();
+        field.focus();
+        return false;
+      }
+    }
+
+    return true;
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Connect your API here to save registration data.
-    console.log("Form Submitted:", formData);
+    if (!validateCurrentStep()) return;
+
+    if (currentStep < steps.length - 1) {
+      setCurrentStep((prev) => prev + 1);
+      return;
+    }
+
+    // Connect your API here to save the application.
+    console.log("Consultation form submitted:", formData);
     setSubmitted(true);
   };
 
-  const inputClass =
-    "w-full min-w-0 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition-all duration-200 placeholder:text-slate-400 hover:border-brand-200 focus:border-brand-500 focus:ring-4 focus:ring-brand-100/70";
+  const handleBack = () => {
+    setCurrentStep((prev) => Math.max(0, prev - 1));
+  };
 
-  const iconInputClass = `${inputClass} pl-11`;
+  const resetForm = () => {
+    setFormData(initialFormData);
+    setCurrentStep(0);
+    setSubmitted(false);
+  };
 
-  const labelClass =
-    "mb-2 block text-sm font-semibold text-secondary-500";
+  const renderField = (
+    label: string,
+    name: keyof FormData,
+    type = "text",
+    placeholder = "",
+    autoComplete?: string
+  ) => (
+    <div className="min-w-0" key={name}>
+      <label htmlFor={name} className={labelClass}>
+        {label}
+        {requiredMark}
+      </label>
 
-  const iconClass =
-    "pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-brand-500";
+      <input
+        id={name}
+        name={name}
+        type={type}
+        value={formData[name] as string}
+        onChange={handleChange}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        required
+        className={inputClass}
+      />
+    </div>
+  );
+
+  const renderSelect = (
+    label: string,
+    name: keyof FormData,
+    placeholder: string,
+    options: { label: string; value: string }[]
+  ) => (
+    <div className="min-w-0" key={name}>
+      <label htmlFor={name} className={labelClass}>
+        {label}
+        {requiredMark}
+      </label>
+
+      <div className="relative">
+        <select
+          id={name}
+          name={name}
+          value={formData[name] as string}
+          onChange={handleChange}
+          required
+          className={`${inputClass} appearance-none pr-10 ${
+            !formData[name] ? "text-slate-400" : ""
+          }`}
+        >
+          <option value="" disabled>
+            {placeholder}
+          </option>
+
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+
+        <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+      </div>
+    </div>
+  );
+
+  if (submitted) {
+    return (
+      <section
+        id="booking-section"
+        className="bg-[#F7F8FA] px-4 py-12 sm:px-6 sm:py-16"
+      >
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <div className="flex min-h-[400px] flex-col items-center justify-center px-6 py-12 text-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+              <Check className="h-8 w-8" />
+            </div>
+
+            <h2 className="mt-6 text-2xl font-bold tracking-tight text-[#0B1D36]">
+              Thank You!
+            </h2>
+
+            <p className="mt-2 text-sm text-slate-500">
+              Your form has been submitted successfully.
+            </p>
+
+            <button
+              type="button"
+              onClick={resetForm}
+              className="mt-7 inline-flex h-11 items-center gap-2 rounded-xl bg-[#0B1D36] px-5 text-sm font-semibold text-white transition hover:bg-[#142D4C]"
+            >
+              Submit Another Response
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
       id="booking-section"
-      className="relative overflow-hidden bg-brand-25 py-16 sm:py-20 lg:py-24"
+      className="bg-[#F7F8FA] px-4 py-10 sm:px-6 sm:py-14 lg:py-16"
     >
-      {/* Soft brand background */}
-      <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-brand-100/50 blur-3xl" />
-      <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-brand-200/30 blur-3xl" />
+      <div className="mx-auto max-w-5xl">
+        <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_12px_50px_-24px_rgba(11,29,54,0.20)] lg:grid lg:grid-cols-12">
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section introduction */}
-        <div
-          className={`mx-auto mb-10 max-w-3xl text-center transition-all duration-700 sm:mb-12 ${
-            sectionVisible
-              ? "translate-y-0 opacity-100"
-              : "translate-y-5 opacity-0"
-          }`}
-        >
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-white px-4 py-2 shadow-sm">
-            <Sparkles className="h-4 w-4 text-brand-600" />
-            <span className="text-xs font-bold uppercase tracking-[0.15em] text-brand-700">
-              Your Global Education Journey
-            </span>
-          </div>
+          {/* Left: Progress panel */}
+          <aside className="relative overflow-hidden bg-[#0B1D36] px-5 py-5 text-white sm:px-7 sm:py-6 lg:col-span-4 lg:px-7 lg:py-9">
+            <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full border border-white/[0.06]" />
+            <div className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full border border-white/[0.06]" />
 
-          <h2 className="text-3xl font-bold leading-tight tracking-tight text-secondary-500 sm:text-4xl lg:text-5xl">
-            Let's Plan Your
-            <span className="block text-brand-600 sm:inline sm:pl-2">
-              Study Abroad Future
-            </span>
-          </h2>
+            <div className="relative flex items-center gap-3">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.07] text-[#D8BB71]">
+                <GraduationCap className="h-6 w-6" />
+              </div>
 
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base sm:leading-8">
-            Tell us about your academic background and goals. Our counselling
-            team can help you explore the right opportunities for your future.
-          </p>
+              <div>
+                <h2 className="text-sm font-bold tracking-wide sm:text-base">
+                  Student Consultation
+                </h2>
+                <p className="mt-1 text-xs text-slate-400">
+                  Study Abroad
+                </p>
+              </div>
+            </div>
 
-          <div className="mx-auto mt-6 h-1 w-16 rounded-full bg-brand-500" />
-        </div>
+            {/* Desktop step list */}
+            <div className="relative mt-8 hidden lg:block">
+              {steps.map((step, index) => {
+                const StepIcon = step.icon;
+                const isActive = index === currentStep;
+                const isComplete = index < currentStep;
 
-        {/* Main consultation card */}
-        <div
-          ref={sectionRef}
-          className={`grid grid-cols-1 overflow-hidden rounded-2xl border border-brand-100 bg-white shadow-[0_24px_80px_-32px_rgba(24,47,90,0.20)] transition-all duration-700 lg:grid-cols-12 lg:rounded-3xl ${
-            sectionVisible
-              ? "translate-y-0 opacity-100"
-              : "translate-y-6 opacity-0"
-          }`}
-        >
-          {/* Left branding panel */}
-          <aside className="relative flex flex-col overflow-hidden bg-secondary-500 px-6 py-9 text-white sm:px-10 sm:py-12 lg:col-span-4 lg:px-10 lg:py-12">
-            <Image
-              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80"
-              alt="Students preparing for their international education journey"
-              fill
-              sizes="(max-width: 1024px) 100vw, 35vw"
-              className="object-cover opacity-15"
-            />
+                return (
+                  <div
+                    key={step.title}
+                    className="relative flex min-h-[88px] gap-3"
+                  >
+                    {index < steps.length - 1 && (
+                      <div
+                        className={`absolute left-[19px] top-10 h-[48px] w-px ${
+                          isComplete
+                            ? "bg-[#C9A84C]"
+                            : "bg-white/10"
+                        }`}
+                      />
+                    )}
 
-            {/* Brand overlays */}
-            <div className="absolute inset-0 bg-gradient-to-br from-secondary-500/95 via-secondary-500/90 to-brand-950/95" />
-            <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full border border-white/10" />
-            <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full border border-white/10" />
-            <div className="pointer-events-none absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-brand-500/20 blur-3xl" />
+                    <div
+                      className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-colors ${
+                        isActive
+                          ? "border-[#C9A84C] bg-[#C9A84C] text-[#0B1D36]"
+                          : isComplete
+                            ? "border-[#C9A84C]/40 bg-[#C9A84C]/10 text-[#D8BB71]"
+                            : "border-white/10 bg-white/[0.04] text-slate-400"
+                      }`}
+                    >
+                      {isComplete ? (
+                        <Check className="h-4 w-4" />
+                      ) : (
+                        <StepIcon className="h-[18px] w-[18px]" />
+                      )}
+                    </div>
 
-            <div className="relative z-10 flex flex-1 flex-col">
-              <div className="mb-8 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-2 backdrop-blur-sm">
-                <Globe2 className="h-4 w-4 text-brand-200" />
-                <span className="text-xs font-semibold tracking-wide text-white">
-                  Begin Your Journey
+                    <div className="min-w-0 pt-1">
+                      <p
+                        className={`text-sm font-semibold ${
+                          isActive
+                            ? "text-white"
+                            : "text-slate-400"
+                        }`}
+                      >
+                        {step.title}
+                      </p>
+
+                      <p className="mt-1 text-xs text-slate-500">
+                        Step {index + 1} of {steps.length}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Mobile step list */}
+            <div className="relative mt-5 grid grid-cols-3 gap-2 lg:hidden">
+              {steps.map((step, index) => {
+                const StepIcon = step.icon;
+                const isActive = index === currentStep;
+                const isComplete = index < currentStep;
+
+                return (
+                  <div
+                    key={step.title}
+                    className="min-w-0"
+                  >
+                    <div
+                      className={`mb-2 flex h-9 w-9 items-center justify-center rounded-lg border ${
+                        isActive
+                          ? "border-[#C9A84C] bg-[#C9A84C] text-[#0B1D36]"
+                          : isComplete
+                            ? "border-[#C9A84C]/40 bg-[#C9A84C]/10 text-[#D8BB71]"
+                            : "border-white/15 text-slate-400"
+                      }`}
+                    >
+                      {isComplete ? (
+                        <Check className="h-4 w-4" />
+                      ) : (
+                        <StepIcon className="h-4 w-4" />
+                      )}
+                    </div>
+
+                    <p
+                      className={`text-[11px] font-semibold leading-4 sm:text-xs ${
+                        isActive ? "text-white" : "text-slate-400"
+                      }`}
+                    >
+                      {index + 1}. {step.title}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Progress */}
+            <div className="relative mt-6 border-t border-white/10 pt-5 lg:mt-4">
+              <div className="mb-2 flex items-center justify-between text-xs">
+                <span className="text-slate-400">Your progress</span>
+                <span className="font-semibold text-[#D8BB71]">
+                  {Math.round(((currentStep + 1) / steps.length) * 100)}%
                 </span>
               </div>
 
-              <h3 className="max-w-sm text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-                Your future has no borders.
-                <span className="mt-2 block text-brand-200">
-                  Let's get you there.
-                </span>
-              </h3>
-
-              <p className="mt-5 max-w-md text-sm leading-7 text-blue-50/80 sm:text-base">
-                Take the first step towards international education with
-                guidance tailored to your academic profile and aspirations.
-              </p>
-
-              {/* Benefits */}
-              <div className="mt-9 space-y-5 border-t border-white/15 pt-7">
-                <div className="flex items-start gap-3.5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-brand-200">
-                    <CheckCircle2 className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-white">
-                      Personalized Counselling
-                    </p>
-                    <p className="mt-1 text-xs leading-5 text-blue-50/70">
-                      Guidance based on your academic profile and goals.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3.5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-brand-200">
-                    <GraduationCap className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-white">
-                      University Application Guidance
-                    </p>
-                    <p className="mt-1 text-xs leading-5 text-blue-50/70">
-                      Understand application requirements and next steps.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3.5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-brand-200">
-                    <ShieldCheck className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-white">
-                      A Clearer Path Forward
-                    </p>
-                    <p className="mt-1 text-xs leading-5 text-blue-50/70">
-                      Get help understanding your available options.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom message */}
-              <div className="mt-10 rounded-2xl border border-white/15 bg-white/[0.07] p-5 backdrop-blur-sm lg:mt-auto lg:translate-y-6">
-                <p className="text-sm font-semibold text-white">
-                  Every great journey starts with a conversation.
-                </p>
-                <p className="mt-2 text-xs leading-6 text-blue-50/70">
-                  Share your details and take a step closer to your study
-                  abroad goals.
-                </p>
+              <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+                <div
+                  className="h-full rounded-full bg-[#C9A84C] transition-all duration-300"
+                  style={{
+                    width: `${((currentStep + 1) / steps.length) * 100}%`,
+                  }}
+                />
               </div>
             </div>
           </aside>
 
-          {/* Right form panel */}
-          <div className="min-w-0 px-5 py-8 sm:px-9 sm:py-10 lg:col-span-8 lg:px-12 lg:py-12">
-            {submitted ? (
-              <div className="flex min-h-[520px] flex-col items-center justify-center px-2 py-12 text-center">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full border border-brand-100 bg-brand-50 text-brand-600">
-                  <CheckCircle2 className="h-10 w-10" />
-                </div>
+          {/* Right: Form panel */}
+          <div className="min-w-0 px-5 py-7 sm:px-8 sm:py-8 lg:col-span-8 lg:px-10 lg:py-9">
+            <div className="mb-6 border-b border-slate-100 pb-5">
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[#92752D]">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#C9A84C]" />
+                  Step {currentStep + 1} of {steps.length}
+                </span>
 
-                <h3 className="mt-6 text-2xl font-bold tracking-tight text-secondary-500 sm:text-3xl">
-                  Registration Received!
-                </h3>
+                <span className="text-xs text-slate-400">
+                  * Required
+                </span>
+              </div>
 
-                <p className="mt-3 max-w-md text-sm leading-7 text-slate-600 sm:text-base">
-                  Thank you for reaching out. Your form has passed the
-                  client-side submission step. Connect the form to your API
-                  to save your details and arrange a counselling session.
-                </p>
+              <h3 className="text-xl font-bold tracking-tight text-[#0B1D36] sm:text-2xl">
+                {steps[currentStep].title}
+              </h3>
+            </div>
 
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              noValidate
+              className="flex flex-col"
+            >
+              {/* Equal minimum content height across all steps */}
+              <div className="min-h-[310px] sm:min-h-[300px]">
+
+                {/* Step 1: Personal Details */}
+                {currentStep === 0 && (
+                  <div
+                    data-active-step
+                    className="grid grid-cols-1 gap-x-5 gap-y-5 sm:grid-cols-2"
+                  >
+                    {renderField(
+                      "First Name",
+                      "firstName",
+                      "text",
+                      "Enter first name",
+                      "given-name"
+                    )}
+
+                    {renderField(
+                      "Last Name",
+                      "lastName",
+                      "text",
+                      "Enter last name",
+                      "family-name"
+                    )}
+
+                    {renderField(
+                      "Email Address",
+                      "email",
+                      "email",
+                      "you@example.com",
+                      "email"
+                    )}
+
+                    {renderField(
+                      "Phone Number",
+                      "phone",
+                      "tel",
+                      "+880 1700-000000",
+                      "tel"
+                    )}
+
+                    <div className="sm:col-span-2">
+                      {renderField(
+                        "Current City",
+                        "city",
+                        "text",
+                        "e.g. Dhaka, Chattogram",
+                        "address-level2"
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Step 2: Academic Profile */}
+                {currentStep === 1 && (
+                  <div
+                    data-active-step
+                    className="grid grid-cols-1 content-start gap-x-5 gap-y-5 sm:grid-cols-2"
+                  >
+                    {renderSelect(
+                      "Highest Education Level",
+                      "educationLevel",
+                      "Select education level",
+                      [
+                        { label: "SSC", value: "SSC" },
+                        { label: "HSC", value: "HSC" },
+                        { label: "Diploma", value: "Diploma" },
+                        { label: "O Level", value: "O level" },
+                        { label: "A Level", value: "A level" },
+                        { label: "Bachelor's", value: "Bachelor's" },
+                        { label: "Hon's", value: "Hon's" },
+                        { label: "Master's", value: "Master's" },
+                        { label: "MBBS", value: "MBBS" },
+                      ]
+                    )}
+
+                    {/* Show institution field only after an education level is selected */}
+                    {formData.educationLevel && (
+                      <div className="sm:col-span-2">
+                        {renderField(
+                          "School / College / University",
+                          "institutionName",
+                          "text",
+                          "Enter institution name"
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Step 3: English Proficiency */}
+                {currentStep === 2 && (
+                  <div
+                    data-active-step
+                    className="space-y-5"
+                  >
+                    {renderSelect(
+                      "Have you taken IELTS / PTE / TOEFL?",
+                      "hasEnglishTest",
+                      "Select your current status",
+                      [
+                        {
+                          label: "Yes, I have taken the test",
+                          value: "yes",
+                        },
+                        {
+                          label: "No, I plan to take it",
+                          value: "no",
+                        },
+                      ]
+                    )}
+
+                    {formData.hasEnglishTest === "yes" && (
+                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                        {renderSelect(
+                          "Test Name",
+                          "testName",
+                          "Select test",
+                          [
+                            { label: "IELTS", value: "IELTS" },
+                            { label: "PTE", value: "PTE" },
+                            { label: "TOEFL", value: "TOEFL" },
+                            { label: "OIETC", value: "OIETC" },
+                            { label: "Duolingo", value: "Duolingo" },
+                          ]
+                        )}
+
+                        {renderField(
+                          "Overall Score",
+                          "overallScore",
+                          "number",
+                          "e.g. 7.0 or 65"
+                        )}
+                      </div>
+                    )}
+
+                    {formData.hasEnglishTest === "no" &&
+                      renderField(
+                        "Tentative Exam Month / Year",
+                        "tentativeExamDate",
+                        "text",
+                        "e.g. November 2026"
+                      )}
+
+                    <div className="border-t border-slate-100 pt-5">
+                      <label className="flex cursor-pointer items-start gap-3">
+                        <input
+                          type="checkbox"
+                          name="consent"
+                          checked={formData.consent}
+                          onChange={handleChange}
+                          required
+                          className="mt-0.5 h-4 w-4 shrink-0 cursor-pointer rounded border-slate-300 accent-[#0B1D36] focus:ring-[#C9A84C]"
+                        />
+
+                        <span className="text-sm leading-5 text-slate-600">
+                          I agree to be contacted regarding my study abroad plans.
+                          {requiredMark}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Navigation stays at a consistent position */}
+              <div className="mt-7 flex items-center justify-between gap-3 border-t border-slate-100 pt-5">
                 <button
                   type="button"
-                  onClick={() => setSubmitted(false)}
-                  className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-100"
+                  onClick={handleBack}
+                  disabled={currentStep === 0}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:bg-slate-50 disabled:invisible"
                 >
-                  Submit Another Response
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowLeft className="h-4 w-4" />
+                  Back
+                </button>
+
+                <button
+                  type="submit"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#0B1D36] px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#142D4C] focus:outline-none focus:ring-4 focus:ring-[#0B1D36]/10"
+                >
+                  {currentStep === steps.length - 1 ? (
+                    <>
+                      Submit Application
+                      <Send className="h-4 w-4" />
+                    </>
+                  ) : (
+                    <>
+                      Continue
+                      <ArrowRight className="h-4 w-4" />
+                    </>
+                  )}
                 </button>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-8">
-                {/* Form heading */}
-                <div className="flex items-start gap-4 border-b border-slate-100 pb-6">
-                  <div className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 sm:flex">
-                    <GraduationCap className="h-6 w-6" />
-                  </div>
-
-                  <div className="min-w-0">
-                    <h3 className="text-xl font-bold tracking-tight text-secondary-500 sm:text-2xl">
-                      Student Consultation Form
-                    </h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-500">
-                      Complete the details below so we can better understand
-                      your study plans.
-                    </p>
-                    <p className="mt-3 text-xs text-slate-500">
-                      <span className="font-semibold text-brand-600">*</span>{" "}
-                      Required fields
-                    </p>
-                  </div>
-                </div>
-
-                {/* Personal information */}
-                <div className="space-y-5">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                      <User className="h-4 w-4" />
-                    </div>
-                    <h4 className="text-base font-bold text-secondary-500">
-                      Personal Information
-                    </h4>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                    <div>
-                      <label htmlFor="firstName" className={labelClass}>
-                        First Name <span className="text-brand-600">*</span>
-                      </label>
-                      <input
-                        id="firstName"
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        autoComplete="given-name"
-                        required
-                        placeholder="Enter first name"
-                        className={inputClass}
-                      />
-                    </div>
-
-                    <div>
-                      <label htmlFor="lastName" className={labelClass}>
-                        Last Name <span className="text-brand-600">*</span>
-                      </label>
-                      <input
-                        id="lastName"
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        autoComplete="family-name"
-                        required
-                        placeholder="Enter last name"
-                        className={inputClass}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                    <div>
-                      <label htmlFor="email" className={labelClass}>
-                        Email Address{" "}
-                        <span className="text-brand-600">*</span>
-                      </label>
-                      <div className="relative">
-                        <Mail className={iconClass} />
-                        <input
-                          id="email"
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          autoComplete="email"
-                          required
-                          placeholder="you@example.com"
-                          className={iconInputClass}
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="phone" className={labelClass}>
-                        Phone Number{" "}
-                        <span className="text-brand-600">*</span>
-                      </label>
-                      <div className="relative">
-                        <Phone className={iconClass} />
-                        <input
-                          id="phone"
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          autoComplete="tel"
-                          required
-                          placeholder="+880 1700-000000"
-                          className={iconInputClass}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="city" className={labelClass}>
-                      Current City <span className="text-brand-600">*</span>
-                    </label>
-                    <div className="relative">
-                      <MapPin className={iconClass} />
-                      <input
-                        id="city"
-                        type="text"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleChange}
-                        autoComplete="address-level2"
-                        required
-                        placeholder="e.g. Dhaka, Chattogram"
-                        className={iconInputClass}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Academic information */}
-                <div className="space-y-5 border-t border-slate-100 pt-7">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                      <GraduationCap className="h-4 w-4" />
-                    </div>
-                    <h4 className="text-base font-bold text-secondary-500">
-                      Academic Background
-                    </h4>
-                  </div>
-
-                  <div>
-                    <label htmlFor="educationLevel" className={labelClass}>
-                      Highest Education Level{" "}
-                      <span className="text-brand-600">*</span>
-                    </label>
-                    <div className="relative">
-                      <GraduationCap className={iconClass} />
-                      <select
-                        id="educationLevel"
-                        name="educationLevel"
-                        value={formData.educationLevel}
-                        onChange={handleChange}
-                        required
-                        className={`${iconInputClass} appearance-none pr-10`}
-                      >
-                        <option value="" disabled>
-                          Select your education level
-                        </option>
-                        <option value="SSC">SSC</option>
-                        <option value="HSC">HSC</option>
-                        <option value="Diploma">Diploma</option>
-                        <option value="O level">O level</option>
-                        <option value="A level">A level</option>
-                        <option value="Bachelor's">Bachelor&apos;s</option>
-                        <option value="Hon's">Hon&apos;s</option>
-                        <option value="Master's">Master&apos;s</option>
-                        <option value="MBBS">MBBS</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {formData.educationLevel && (
-                    <div className="animate-in fade-in duration-300">
-                      <label htmlFor="institutionName" className={labelClass}>
-                        School / College / University Name{" "}
-                        <span className="text-brand-600">*</span>
-                      </label>
-                      <div className="relative">
-                        <Building2 className={iconClass} />
-                        <input
-                          id="institutionName"
-                          type="text"
-                          name="institutionName"
-                          value={formData.institutionName}
-                          onChange={handleChange}
-                          required
-                          placeholder="Enter your institution name"
-                          className={iconInputClass}
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* English proficiency */}
-                <div className="space-y-5 border-t border-slate-100 pt-7">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                      <Award className="h-4 w-4" />
-                    </div>
-                    <h4 className="text-base font-bold text-secondary-500">
-                      English Proficiency
-                    </h4>
-                  </div>
-
-                  <div>
-                    <label htmlFor="hasEnglishTest" className={labelClass}>
-                      Have you taken IELTS / PTE / TOEFL?{" "}
-                      <span className="text-brand-600">*</span>
-                    </label>
-                    <div className="relative">
-                      <Award className={iconClass} />
-                      <select
-                        id="hasEnglishTest"
-                        name="hasEnglishTest"
-                        value={formData.hasEnglishTest}
-                        onChange={handleChange}
-                        required
-                        className={`${iconInputClass} appearance-none pr-10`}
-                      >
-                        <option value="" disabled>
-                          Select your current status
-                        </option>
-                        <option value="yes">
-                          Yes, I have already taken the test
-                        </option>
-                        <option value="no">
-                          No, I plan to take it in the future
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {formData.hasEnglishTest === "yes" && (
-                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 animate-in fade-in duration-300">
-                      <div>
-                        <label htmlFor="testName" className={labelClass}>
-                          Which Test?{" "}
-                          <span className="text-brand-600">*</span>
-                        </label>
-                        <select
-                          id="testName"
-                          name="testName"
-                          value={formData.testName}
-                          onChange={handleChange}
-                          required
-                          className={inputClass}
-                        >
-                          <option value="" disabled>
-                            Select your test
-                          </option>
-                          <option value="IELTS">IELTS</option>
-                          <option value="PTE">PTE</option>
-                          <option value="TOEFL">TOEFL</option>
-                          <option value="OIETC">OIETC</option>
-                          <option value="Duolingo">Duolingo</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label htmlFor="overallScore" className={labelClass}>
-                          Overall Score{" "}
-                          <span className="text-brand-600">*</span>
-                        </label>
-                        <input
-                          id="overallScore"
-                          type="number"
-                          step="0.5"
-                          name="overallScore"
-                          value={formData.overallScore}
-                          onChange={handleChange}
-                          required
-                          placeholder="e.g. 7.0 or 65"
-                          className={inputClass}
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {formData.hasEnglishTest === "no" && (
-                    <div className="animate-in fade-in duration-300">
-                      <label
-                        htmlFor="tentativeExamDate"
-                        className={labelClass}
-                      >
-                        Tentative Exam Month / Year{" "}
-                        <span className="text-brand-600">*</span>
-                      </label>
-                      <div className="relative">
-                        <Calendar className={iconClass} />
-                        <input
-                          id="tentativeExamDate"
-                          type="text"
-                          name="tentativeExamDate"
-                          value={formData.tentativeExamDate}
-                          onChange={handleChange}
-                          required
-                          placeholder="e.g. November 2026"
-                          className={iconInputClass}
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Consent */}
-                <div className="rounded-xl border border-brand-100 bg-brand-25 p-4 sm:p-5">
-                  <div className="flex items-start gap-3">
-                    <input
-                      type="checkbox"
-                      id="consent"
-                      name="consent"
-                      checked={formData.consent}
-                      onChange={handleChange}
-                      required
-                      className="mt-1 h-4 w-4 shrink-0 cursor-pointer rounded border-slate-300 accent-brand-600 focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
-                    />
-                    <label
-                      htmlFor="consent"
-                      className="cursor-pointer text-xs leading-6 text-slate-600 sm:text-sm"
-                    >
-                      I confirm my interest in participating in counselling
-                      and give permission to be contacted regarding my study
-                      abroad plans.{" "}
-                      <span className="font-semibold text-brand-600">*</span>
-                    </label>
-                  </div>
-                </div>
-
-                {/* Submit */}
-                <div className="space-y-4">
-                  <button
-                    type="submit"
-                    className="group flex min-h-14 w-full items-center justify-center gap-3 rounded-xl bg-brand-600 px-6 py-4 text-sm font-bold text-white shadow-md shadow-brand-600/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-lg hover:shadow-brand-600/20 focus:outline-none focus:ring-4 focus:ring-brand-200 active:translate-y-0"
-                  >
-                    <Send className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
-                    <span>Request a Consultation</span>
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </button>
-
-                  <p className="flex items-center justify-center gap-2 text-center text-xs leading-5 text-slate-500">
-                    <ShieldCheck className="h-4 w-4 shrink-0 text-brand-600" />
-                    Your information should be handled securely and
-                    confidentially.
-                  </p>
-                </div>
-              </form>
-            )}
+            </form>
           </div>
-        </div>     
+        </div>
       </div>
     </section>
   );
