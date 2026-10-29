@@ -92,14 +92,14 @@ const UniversityMarqueeSection = () => {
       </div>
 
       {/* Infinite Marquee Container */}
-      <div className="relative mt-12 space-y-6">
+      <div className="relative mt-4">
         {/* Left & Right Gradient Vignettes for Seamless Fade */}
         <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-20 w-20 bg-gradient-to-r from-slate-50 to-transparent sm:w-32 lg:w-48 dark:from-slate-950" />
         <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-20 w-20 bg-gradient-to-l from-slate-50 to-transparent sm:w-32 lg:w-48 dark:from-slate-950" />
 
         {/* Row 1: Left to Right Marquee */}
         <div className="flex w-full overflow-hidden">
-          <div className="flex min-w-full shrink-0 animate-marquee-left gap-5 pr-5 hover:[animation-play-state:paused]">
+          <div className="flex min-w-full shrink-0 animate-marquee-left gap-5 pr-5 hover:[animation-play-state:paused] py-4">
             {[...patnerData, ...patnerData].map((uni, idx) => (
               <div
                 key={`r1-${uni.id}-${idx}`}
@@ -121,7 +121,7 @@ const UniversityMarqueeSection = () => {
 
         {/* Row 2: Right to Left Marquee */}
         <div className="flex w-full overflow-hidden">
-          <div className="flex min-w-full shrink-0 animate-marquee-right gap-5 pr-5 hover:[animation-play-state:paused]">
+          <div className="flex min-w-full shrink-0 animate-marquee-right gap-5 pr-5 hover:[animation-play-state:paused] py-4">
             {[...patnerData, ...patnerData].map((uni, idx) => (
               <div
                 key={`r2-${uni.id}-${idx}`}

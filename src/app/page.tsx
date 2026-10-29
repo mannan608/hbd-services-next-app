@@ -1,3 +1,4 @@
+import AchieversVoices from "./components/Achievers/AchieversVoices";
 import DestinationSection from "./components/Destinations/DestinationSection";
 import DigitalPlatformSection from "./components/DigitalPlatform/DigitalPlatformSection";
 import FeaturesSection from "./components/hero/FeaturesSection";
@@ -9,14 +10,14 @@ import ServicesSection from "./components/Services/ServicesSection";
 export default function Home() {
   return (
     <div className="">
-    <HeroSection />
-    <FeaturesSection />
-    <UniversityMarqueeSection />
-    <DestinationSection />
-    <ServicesSection />
-    <LanguageAcademySection />
-    <DigitalPlatformSection />
-    <UniversityMarqueeSection />
+      <HeroSection />
+      <FeaturesSection />
+      <DestinationSection />
+      <ServicesSection />
+      <LanguageAcademySection />
+      <DigitalPlatformSection />
+      <UniversityMarqueeSection />
+      <AchieversVoices />
     </div>
   );
 }
