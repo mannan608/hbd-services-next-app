@@ -2,7 +2,7 @@ import AchieversVoices from "./components/achievers/AchieversVoices";
 import CertificationAwardsSection from "./components/certification-awards/CertificationAwardsSection";
 import DestinationSection from "./components/destinations/DestinationSection";
 import DigitalPlatformSection from "./components/digital-platform/DigitalPlatformSection";
-import ConsultationForm from "./components/forms/ConsultationForm";
+import ConsultationFormSection from "./components/forms/ConsultationFormSection";
 import FeaturesSection from "./components/hero/FeaturesSection";
 import HeroSection from "./components/hero/HeroSection";
 import LanguageAcademySection from "./components/language-academy/LanguageAcademySection";
@@ -23,7 +23,7 @@ export default function Home() {
       <AchieversVoices />
       <CertificationAwardsSection />
       <ReviewsSection />
-      <ConsultationForm />
+      <ConsultationFormSection />
     </div>
   );
 }
