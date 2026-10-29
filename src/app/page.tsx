@@ -1,13 +1,14 @@
-import AchieversVoices from "./components/Achievers/AchieversVoices";
-import CertificationAwardsSection from "./components/CertificationAwards/CertificationAwardsSection";
-import DestinationSection from "./components/Destinations/DestinationSection";
-import DigitalPlatformSection from "./components/DigitalPlatform/DigitalPlatformSection";
+import AchieversVoices from "./components/achievers/AchieversVoices";
+import CertificationAwardsSection from "./components/certification-awards/CertificationAwardsSection";
+import DestinationSection from "./components/destinations/DestinationSection";
+import DigitalPlatformSection from "./components/digital-platform/DigitalPlatformSection";
+import ConsultationForm from "./components/forms/ConsultationForm";
 import FeaturesSection from "./components/hero/FeaturesSection";
 import HeroSection from "./components/hero/HeroSection";
-import LanguageAcademySection from "./components/LanguageAcademy/LanguageAcademySection";
-import UniversityMarqueeSection from "./components/Patners/UniversityMarqueeSection";
-import ReviewsSection from "./components/Reviews/ReviewsSection";
-import ServicesSection from "./components/Services/ServicesSection";
+import LanguageAcademySection from "./components/language-academy/LanguageAcademySection";
+import UniversityMarqueeSection from "./components/patners/UniversityMarqueeSection";
+import ReviewsSection from "./components/reviews/ReviewsSection";
+import ServicesSection from "./components/services/ServicesSection";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <AchieversVoices />
       <CertificationAwardsSection />
       <ReviewsSection />
+      <ConsultationForm />
     </div>
   );
 }
