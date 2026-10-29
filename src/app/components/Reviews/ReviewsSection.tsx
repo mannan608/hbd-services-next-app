@@ -216,7 +216,7 @@ const ReviewsSection = () => {
         </div>
 
         {/* Carousel controls */}
-        <div className="mt-9 flex items-center justify-center gap-5 sm:mt-11">
+        <div className="mt-6 flex items-center justify-center gap-5 sm:mt-8">
           <button
             type="button"
             onClick={handlePrev}
@@ -251,27 +251,7 @@ const ReviewsSection = () => {
           >
             <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
           </button>
-        </div>
-
-        {/* Bottom call to action */}
-        <div className="mt-14 flex flex-col items-center justify-between gap-5 rounded-2xl border border-brand-100 bg-brand-50/70 p-6 sm:mt-16 sm:flex-row sm:p-8">
-          <div className="text-center sm:text-left">
-            <h3 className="text-xl font-bold tracking-tight text-secondary-500 sm:text-2xl">
-              Ready to start your journey?
-            </h3>
-            <p className="mt-2 text-sm leading-6 text-slate-600 sm:text-base">
-              Let our team help you take the next step toward your future.
-            </p>
-          </div>
-
-          <Link
-            href={REVIEWS_URL}
-            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-secondary-500 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-brand-700 focus:outline-none focus:ring-4 focus:ring-brand-100"
-          >
-            Share Your Experience
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </div>
+        </div>       
       </div>
     </section>
   );
@@ -321,7 +301,7 @@ function ReviewCard({ review }: { review: ReviewItem }) {
 
       <p className="mt-5 flex-1 text-sm leading-7 text-slate-600 line-clamp-3">
         “{review.text}”
-        <Link href='/reviews' className="ml-2 text-brand-500 text-xs">Read more</Link>
+        {/* <Link href='/reviews' className="ml-2 text-brand-500 text-xs">Read more</Link> */}
       </p>
     </article>
   );
