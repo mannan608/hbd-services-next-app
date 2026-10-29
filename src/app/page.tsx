@@ -1,4 +1,5 @@
 import AchieversVoices from "./components/Achievers/AchieversVoices";
+import CertificationAwardsSection from "./components/CertificationAwards/CertificationAwardsSection";
 import DestinationSection from "./components/Destinations/DestinationSection";
 import DigitalPlatformSection from "./components/DigitalPlatform/DigitalPlatformSection";
 import FeaturesSection from "./components/hero/FeaturesSection";
@@ -18,6 +19,7 @@ export default function Home() {
       <DigitalPlatformSection />
       <UniversityMarqueeSection />
       <AchieversVoices />
+      <CertificationAwardsSection />
     </div>
   );
 }

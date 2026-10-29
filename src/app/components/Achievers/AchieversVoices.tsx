@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Play, X, Sparkles } from "lucide-react";
 
 
-const videoTestimonials=[
+const testimonials: Testimonial[] = [
   {
     "id": "1",
     "name": "Sarah Jenkins",
@@ -75,7 +75,44 @@ export interface Testimonial {
 
 
 const AchieversVoices = () => {
-    const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
+  const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
+  const [headerVisible, setHeaderVisible] = useState(false);
+  const [gridVisible, setGridVisible] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          if (entry.target === headerRef.current) setHeaderVisible(true);
+          if (entry.target === gridRef.current) setGridVisible(true);
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    if (headerRef.current) observer.observe(headerRef.current);
+    if (gridRef.current) observer.observe(gridRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!activeVideoId) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setActiveVideoId(null);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [activeVideoId]);
+
   return (
     <section className="relative overflow-hidden bg-slate-950 py-24 text-white" id="achievers">
       {/* Background ambient lighting */}
@@ -98,8 +135,8 @@ const AchieversVoices = () => {
           </div>
 
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
-            Achievers'{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-amber-300 bg-clip-text text-transparent">
+            Achievers&apos;{" "}
+            <span className="text-red-600">
               Voices
             </span>
           </h2>
@@ -154,6 +191,10 @@ const AchieversVoices = () => {
               </div>
             </button>
           ))}
+        </div>
+
+        <div className="mt-5 flex justify-end">
+          <button className="flex w-40 items-center justify-center rounded-xl bg-red-600 px-5 py-2 text-sm font-semibold text-white">View More</button>
         </div>
 
       </div>

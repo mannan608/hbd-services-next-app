@@ -1,7 +1,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/app/assets/brand/logo.webp";
+import logo from "@/app/assets/brand/w-logo.png";
 
 const footerSections = [
   {
@@ -114,7 +114,7 @@ export default function Footer({ year }: FooterProps) {
                 alt="HBD Services"
                 width={180}
                 height={70}
-                className="h-auto max-h-14 w-36 object-contain object-left sm:w-40"
+                className="h-auto w-40 object-contain object-left sm:w-40"
               />
             </Link>
 
