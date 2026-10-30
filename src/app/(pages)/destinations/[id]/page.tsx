@@ -16,12 +16,15 @@ import {
   ShieldCheck,
   Sparkles,
   Users,
+  type LucideIcon,
 } from "lucide-react";
+import type { ReactNode } from "react";
 
-import DestinationHeader from '@/app/components/destinations/DestinationHeader'
+import DestinationHeader from "@/app/components/destinations/DestinationHeader";
 import DestinationFaq from "@/app/components/destinations/DestinationFaq";
 import DestinationNav from "@/app/components/destinations/DestinationNav";
 import DestinationCTA from "@/app/components/destinations/DestinationCTA";
+import SectionReveal from "@/app/components/destinations/SectionReveal";
 
 const quickFacts = [
   {
@@ -196,7 +199,19 @@ const scholarships = [
 
 
 
-function SectionHeading({ eyebrow, title, description, center = false }) {
+type SectionHeadingProps = {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  center?: boolean;
+};
+
+function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  center = false,
+}: SectionHeadingProps) {
   return (
     <div className={`max-w-3xl ${center ? "mx-auto text-center" : ""}`}>
       <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-500">
@@ -214,7 +229,12 @@ function SectionHeading({ eyebrow, title, description, center = false }) {
   );
 }
 
-function Card({ children, className = "" }) {
+type CardProps = {
+  children: ReactNode;
+  className?: string;
+};
+
+function Card({ children, className = "" }: CardProps) {
   return (
     <div
       className={`rounded-2xl border border-slate-200/80 bg-white shadow-[0_4px_24px_rgba(11,29,54,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(11,29,54,0.08)] ${className}`}
@@ -224,7 +244,12 @@ function Card({ children, className = "" }) {
   );
 }
 
-function IconBox({ icon: Icon, dark = false }) {
+type IconBoxProps = {
+  icon: LucideIcon;
+  dark?: boolean;
+};
+
+function IconBox({ icon: Icon, dark = false }: IconBoxProps) {
   return (
     <div
       className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${
@@ -238,16 +263,15 @@ function IconBox({ icon: Icon, dark = false }) {
   );
 }
 const page = () => {
-
   return (
-    <main className="min-h-screen overflow-hidden ">
+    <div className="min-h-screen">
       <DestinationHeader/>
         {/* Sticky Navigation */}
      <DestinationNav/>
 
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         {/* Overview */}
-        <section id="overview" className="scroll-mt-24 py-16 lg:py-24">
+        <SectionReveal id="overview" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-24">
           <div className="grid gap-6 lg:grid-cols-12">
             <Card className="p-7 sm:p-10 lg:col-span-8 lg:p-12">
               <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-500">
@@ -292,10 +316,10 @@ const page = () => {
               ))}
             </div>
           </div>
-        </section>
+        </SectionReveal>
 
         {/* Quick Facts */}
-        <section id="facts" className="scroll-mt-24 py-16 lg:py-20">
+        <SectionReveal id="facts" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
           <SectionHeading
             eyebrow="Quick Facts"
             title="United Kingdom at a Glance"
@@ -315,10 +339,10 @@ const page = () => {
               </Card>
             ))}
           </div>
-        </section>
+        </SectionReveal>
 
         {/* Why UK */}
-        <section id="why" className="scroll-mt-24 py-16 lg:py-20">
+        <SectionReveal id="why" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
           <div className="relative overflow-hidden rounded-[28px] bg-[#0B1D36] p-8 sm:p-12 lg:p-16">
             <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full border border-white/10" />
             <div className="absolute -right-10 -top-10 h-60 w-60 rounded-full border border-white/10" />
@@ -332,9 +356,9 @@ const page = () => {
                 <span className="text-brand-500"> United Kingdom?</span>
               </h2>
               <p className="mt-6 text-sm leading-8 text-slate-300 sm:text-base">
-                The UK is home to four of the world's top 10 universities,
+                The UK is home to four of the world&apos;s top 10 universities,
                 offering students globally recognised degrees and excellent
-                academic opportunities. One-year master's programmes help save
+                academic opportunities. One-year master&apos;s programmes help save
                 both time and tuition costs, while the Graduate Route visa
                 allows eligible international graduates to work in the UK
                 after completing their studies. Students may also work up to
@@ -350,10 +374,10 @@ const page = () => {
               </div>
             </div>
           </div>
-        </section>
+        </SectionReveal>
 
         {/* Highlights */}
-        <section id="highlights" className="scroll-mt-24 py-16 lg:py-20">
+        <SectionReveal id="highlights" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
           <SectionHeading
             eyebrow="Key Highlights"
             title="What Makes the UK Stand Out"
@@ -361,7 +385,7 @@ const page = () => {
           />
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {highlights.map((item, index) => (
+            {highlights.map((item) => (
               <Card key={item.title} className="p-6">
                 <div className="flex items-start gap-4">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-500/10 text-brand-500">
@@ -377,10 +401,10 @@ const page = () => {
               </Card>
             ))}
           </div>
-        </section>
+        </SectionReveal>
 
         {/* Universities */}
-        <section id="universities" className="scroll-mt-24 py-16 lg:py-20">
+        <SectionReveal id="universities" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <SectionHeading
               eyebrow="Courses & Universities"
@@ -424,10 +448,10 @@ const page = () => {
               </a>
             ))}
           </div>
-        </section>
+        </SectionReveal>
 
         {/* Visa */}
-        <section id="visa" className="scroll-mt-24 py-16 lg:py-20">
+        <SectionReveal id="visa" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
           <SectionHeading
             eyebrow="Visa Guidance"
             title="UK Student Visa Requirements"
@@ -546,10 +570,10 @@ const page = () => {
               </div>
             </div>
           </div>
-        </section>
+        </SectionReveal>
 
         {/* Living Costs */}
-        <section id="costs" className="scroll-mt-24 py-16 lg:py-20">
+        <SectionReveal id="costs" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
           <SectionHeading
             eyebrow="Cost of Living"
             title="Estimated Monthly Expenses"
@@ -572,10 +596,10 @@ const page = () => {
               </Card>
             ))}
           </div>
-        </section>
+        </SectionReveal>
 
         {/* Work Rights */}
-        <section id="work" className="scroll-mt-24 py-16 lg:py-20">
+        <SectionReveal id="work" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
           <SectionHeading
             eyebrow="Work Opportunities"
             title="Work While Studying in the UK"
@@ -628,10 +652,10 @@ const page = () => {
               </p>
             </Card>
           </div>
-        </section>
+        </SectionReveal>
 
         {/* Scholarships */}
-        <section id="scholarships" className="scroll-mt-24 py-16 lg:py-20">
+        <SectionReveal id="scholarships" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
           <SectionHeading
             eyebrow="Funding Opportunities"
             title="Scholarships in the United Kingdom"
@@ -671,10 +695,10 @@ const page = () => {
               </a>
             ))}
           </div>
-        </section>
+        </SectionReveal>
 
         {/* FAQ */}
-        <section id="faq" className="scroll-mt-24 py-16 lg:py-20">
+        <SectionReveal id="faq" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
           <SectionHeading
             eyebrow="Frequently Asked Questions"
             title="Questions About Studying in the UK"
@@ -682,12 +706,11 @@ const page = () => {
           />
 
          <DestinationFaq />
-        </section>
+        </SectionReveal>
 
       <DestinationCTA />
       </div>
-    
-    </main>
+    </div>
   )
 }
 
