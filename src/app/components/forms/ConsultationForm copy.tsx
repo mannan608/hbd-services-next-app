@@ -99,7 +99,7 @@ const ConsultationForm = () => {
           </div>
 
           <h2 className="text-3xl font-bold leading-tight tracking-tight text-secondary-500 sm:text-4xl lg:text-5xl">
-            Let's Plan Your
+            Let&apos;s Plan Your
             <span className="block text-brand-600 sm:inline sm:pl-2">
               Study Abroad Future
             </span>
@@ -149,7 +149,7 @@ const ConsultationForm = () => {
               <h3 className="max-w-sm text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
                 Your future has no borders.
                 <span className="mt-2 block text-brand-200">
-                  Let's get you there.
+                  Let&apos;s get you there.
                 </span>
               </h3>
 
