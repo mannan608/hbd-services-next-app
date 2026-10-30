@@ -86,7 +86,7 @@ const UniversityMarqueeSection = () => {
 
           {/* Description */}
           <p className="mx-auto mt-4 max-w-xl text-base text-slate-600 sm:text-lg dark:text-neutral-400">
-            Partnering with the world's leading educational institutions to deliver global success.
+            Partnering with the world&apos;s leading educational institutions to deliver global success.
           </p>
         </header>
       </div>

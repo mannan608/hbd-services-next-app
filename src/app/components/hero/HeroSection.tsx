@@ -101,11 +101,10 @@ export default function HeroSection() {
                   className="inline-flex items-center gap-2 rounded-full border border-brand-200/60 bg-brand-50/70 px-3.5 py-1.5 text-xs font-semibold text-brand-700 shadow-2xs backdrop-blur-xs transition-all duration-200 hover:bg-brand-100/80 hover:border-brand-300 hover:shadow-xs hover:-translate-y-0.5 cursor-pointer"
                 >
 
-                  <img
+                  <Image
                     src={`https://flagcdn.com/w20/${item.code.toLowerCase()}.png`}
-                    srcSet={`https://flagcdn.com/w40/${item.code.toLowerCase()}.png 2x`}
-                    width="16"
-                    height="12"
+                    width={16}
+                    height={12}
                     alt={`${item.name} flag`}
                     className="h-3.5 w-4.5 rounded-xs object-cover shadow-2xs"
                   />
