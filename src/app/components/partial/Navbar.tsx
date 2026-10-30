@@ -358,7 +358,7 @@ export default function Navbar({ user = null }: NavbarProps) {
     return (
         <header
             ref={navbarRef}
-            className="relative z-50 border-b border-neutral-200/80 bg-white/95 shadow-sm shadow-neutral-900/2 backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-950/95"
+            className="relative z-50 border-b border-neutral-200/80 bg-white shadow-sm shadow-neutral-900/2 backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-950/95"
         >
             <nav
                 className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
