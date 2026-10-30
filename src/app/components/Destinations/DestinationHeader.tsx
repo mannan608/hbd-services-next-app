@@ -43,7 +43,7 @@ const DestinationHeader = ({ destination }: DestinationHeroProps) => {
     // Handle form submission logic here
   };
   return (
-    <header className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-neutral-dark text-white pt-12 pb-24 lg:pt-20 lg:pb-32">
+    <header className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-neutral-dark text-white py-8 md:py-10 lg:py-12">
       {/* Background Decorative Glows */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent-cyan/10 rounded-full blur-3xl pointer-events-none" />
@@ -52,7 +52,7 @@ const DestinationHeader = ({ destination }: DestinationHeroProps) => {
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
           {/* Left Column - Hero Content */}
-          <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
+          <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
             
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-brand-500/15 text-brand-200 border border-brand-400/20 backdrop-blur-md shadow-sm">
@@ -61,7 +61,7 @@ const DestinationHeader = ({ destination }: DestinationHeroProps) => {
             </div>
 
             {/* Main Title */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15]">
               Study at{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-light-300 via-brand-300 to-accent-cyan">
                 World-Class
@@ -70,7 +70,7 @@ const DestinationHeader = ({ destination }: DestinationHeroProps) => {
             </h1>
 
             {/* Description */}
-            <p className="text-neutral-300 text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
+            <p className="text-neutral-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
               {description}
             </p>
 
@@ -78,31 +78,31 @@ const DestinationHeader = ({ destination }: DestinationHeroProps) => {
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start pt-2">
               <a
                 href="#consultation"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white font-semibold rounded-xl shadow-lg shadow-brand-900/50 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
+                className="inline-flex items-center gap-2 px-8 text-sm py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-xl shadow-lg shadow-brand-900/50 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
               >
                 <span>Book Free Consultation</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a
                 href="#universities"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/15 text-white font-semibold rounded-xl backdrop-blur-md border border-white/10 transition-all duration-200"
+                className="inline-flex items-center gap-2 px-8 text-sm py-2.5 bg-white/10 hover:bg-white/15 text-white font-semibold rounded-xl backdrop-blur-md border border-white/10 transition-all duration-200"
               >
                 <span>Explore Universities</span>
               </a>
             </div>
 
             {/* Feature Badges Grid */}
-            <div className="pt-8 border-t border-brand-800/60 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-neutral-200">
-              <div className="flex items-center gap-2.5 justify-center lg:justify-start">
-                <CheckCircle2 className="w-5 h-5 text-accent-green flex-shrink-0" />
+            <div className="pt-4 border-t border-brand-800/60 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-neutral-200 max-w-xl">
+              <div className="flex items-center gap-2.5 justify-center lg:justify-start text-xs">
+                <CheckCircle2 className="w-3 h-3 text-accent-green flex-shrink-0" />
                 <span className="font-medium">130+ Partner Universities</span>
               </div>
-              <div className="flex items-center gap-2.5 justify-center lg:justify-start">
-                <Award className="w-5 h-5 text-accent-green flex-shrink-0" />
+              <div className="flex items-center gap-2.5 justify-center lg:justify-start text-xs">
+                <Award className="w-3 h-3 text-accent-green flex-shrink-0" />
                 <span className="font-medium">Up to £5,000 Scholarships</span>
               </div>
-              <div className="flex items-center gap-2.5 justify-center lg:justify-start">
-                <Clock className="w-5 h-5 text-accent-green flex-shrink-0" />
+              <div className="flex items-center gap-2.5 justify-center lg:justify-start text-xs">
+                <Clock className="w-3 h-3 text-accent-green flex-shrink-0" />
                 <span className="font-medium">Fast Track Admission</span>
               </div>
             </div>

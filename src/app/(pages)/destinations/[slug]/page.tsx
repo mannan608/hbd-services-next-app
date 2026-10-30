@@ -271,7 +271,7 @@ const page = () => {
 
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         {/* Overview */}
-        <SectionReveal id="overview" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-24">
+        <SectionReveal id="overview" className="scroll-mt-44 md:scroll-mt-48 py-8 lg:py-10">
           <div className="grid gap-6 lg:grid-cols-12">
             <Card className="p-7 sm:p-10 lg:col-span-8 lg:p-12">
               <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-500">
@@ -319,7 +319,7 @@ const page = () => {
         </SectionReveal>
 
         {/* Quick Facts */}
-        <SectionReveal id="facts" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
+        <SectionReveal id="facts" className="scroll-mt-44 md:scroll-mt-48 py-8 lg:py-10">
           <SectionHeading
             eyebrow="Quick Facts"
             title="United Kingdom at a Glance"
@@ -342,7 +342,7 @@ const page = () => {
         </SectionReveal>
 
         {/* Why UK */}
-        <SectionReveal id="why" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
+        <SectionReveal id="why" className="scroll-mt-44 md:scroll-mt-48 py-8 lg:py-10">
           <div className="relative overflow-hidden rounded-[28px] bg-[#0B1D36] p-8 sm:p-12 lg:p-16">
             <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full border border-white/10" />
             <div className="absolute -right-10 -top-10 h-60 w-60 rounded-full border border-white/10" />
@@ -377,7 +377,7 @@ const page = () => {
         </SectionReveal>
 
         {/* Highlights */}
-        <SectionReveal id="highlights" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
+        <SectionReveal id="highlights" className="scroll-mt-44 md:scroll-mt-48 py-8 lg:py-10">
           <SectionHeading
             eyebrow="Key Highlights"
             title="What Makes the UK Stand Out"
@@ -404,7 +404,7 @@ const page = () => {
         </SectionReveal>
 
         {/* Universities */}
-        <SectionReveal id="universities" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
+        <SectionReveal id="universities" className="scroll-mt-44 md:scroll-mt-48 py-8 lg:py-10">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <SectionHeading
               eyebrow="Courses & Universities"
@@ -451,7 +451,7 @@ const page = () => {
         </SectionReveal>
 
         {/* Visa */}
-        <SectionReveal id="visa" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
+        <SectionReveal id="visa" className="scroll-mt-44 md:scroll-mt-48 py-8 lg:py-10">
           <SectionHeading
             eyebrow="Visa Guidance"
             title="UK Student Visa Requirements"
@@ -573,7 +573,7 @@ const page = () => {
         </SectionReveal>
 
         {/* Living Costs */}
-        <SectionReveal id="costs" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
+        <SectionReveal id="costs" className="scroll-mt-44 md:scroll-mt-48 py-8 lg:py-10">
           <SectionHeading
             eyebrow="Cost of Living"
             title="Estimated Monthly Expenses"
@@ -599,7 +599,7 @@ const page = () => {
         </SectionReveal>
 
         {/* Work Rights */}
-        <SectionReveal id="work" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
+        <SectionReveal id="work" className="scroll-mt-44 md:scroll-mt-48 py-8 lg:py-10">
           <SectionHeading
             eyebrow="Work Opportunities"
             title="Work While Studying in the UK"
@@ -655,7 +655,7 @@ const page = () => {
         </SectionReveal>
 
         {/* Scholarships */}
-        <SectionReveal id="scholarships" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
+        <SectionReveal id="scholarships" className="scroll-mt-44 md:scroll-mt-48 py-8 lg:py-10">
           <SectionHeading
             eyebrow="Funding Opportunities"
             title="Scholarships in the United Kingdom"
@@ -698,7 +698,7 @@ const page = () => {
         </SectionReveal>
 
         {/* FAQ */}
-        <SectionReveal id="faq" className="scroll-mt-44 md:scroll-mt-48 py-16 lg:py-20">
+        <SectionReveal id="faq" className="scroll-mt-44 md:scroll-mt-48 py-8 lg:py-10">
           <SectionHeading
             eyebrow="Frequently Asked Questions"
             title="Questions About Studying in the UK"
