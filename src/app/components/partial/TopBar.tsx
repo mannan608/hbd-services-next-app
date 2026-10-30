@@ -13,7 +13,7 @@ import {
 
 const TopBar = () => {
     return (
-        <div className="bg-[#0F172A] text-white/90 text-xs md:text-sm">
+        <div className="bg-brand-800 text-white/90 text-xs md:text-sm">
             <div className="max-w-7xl mx-auto px-4 lg:px-8 flex flex-wrap items-center justify-between gap-3 py-2.5">
 
                 {/* Contact Links */}
@@ -37,7 +37,7 @@ const TopBar = () => {
                             key={item.code}
                             href={`tel:${item.tel}`}
                             aria-label={`Call ${item.name}: ${item.phone}`}
-                            className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"
+                            className="flex items-center gap-2 hover:text-white transition-colors"
                         >
                             <Image
                                 src={`https://flagcdn.com/w20/${item.code.toLowerCase()}.png`}
@@ -48,27 +48,27 @@ const TopBar = () => {
                                 unoptimized
                             />
 
-                            <span>{item.phone}</span>
+                            <span className='text-xs'>{item.phone}</span>
                         </a>
                     ))}
 
                     <a
                         href="mailto:info@hbdservices.com"
-                        className="hidden sm:flex items-center gap-2 hover:text-[#D4AF37] transition-colors"
+                        className="hidden sm:flex items-center gap-2 hover:text-white transition-colors"
                     >
-                        <FaEnvelope className="text-sm" />
+                        <FaEnvelope className="text-[10px]" />
                         <span>info@hbdservices.com</span>
                     </a>
                 </div>
 
                 {/* Social Media Links */}
-                <div className="flex items-center gap-4 text-white/70">
+                <div className="items-center gap-4 text-white/70 hidden min-[480px]:flex">
                     <a
                         href="https://www.facebook.com/hbdservices"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Facebook"
-                        className="hover:text-[#D4AF37] transition-colors"
+                        className="hover:text-white transition-colors"
                     >
                         <FaFacebookF />
                     </a>
@@ -77,7 +77,7 @@ const TopBar = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Twitter"
-                        className="hover:text-[#D4AF37] transition-colors"
+                        className="hover:text-white transition-colors"
                     >
                         <FaXTwitter />
                     </a>
@@ -86,7 +86,7 @@ const TopBar = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Instagram"
-                        className="hover:text-[#D4AF37] transition-colors"
+                        className="hover:text-white transition-colors"
                     >
                         <FaInstagram />
                     </a>
@@ -95,7 +95,7 @@ const TopBar = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="YouTube"
-                        className="hover:text-[#D4AF37] transition-colors"
+                        className="hover:text-white transition-colors"
                     >
                         <FaYoutube />
                     </a>
@@ -104,7 +104,7 @@ const TopBar = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="LinkedIn"
-                        className="hover:text-[#D4AF37] transition-colors"
+                        className="hover:text-white transition-colors"
                     >
                         <FaLinkedinIn />
                     </a>
@@ -113,7 +113,7 @@ const TopBar = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="TikTok"
-                        className="hover:text-[#D4AF37] transition-colors"
+                        className="hover:text-white transition-colors"
                     >
                         <FaTiktok />
                     </a>
