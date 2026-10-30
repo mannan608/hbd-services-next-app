@@ -3,7 +3,7 @@ import ConsultationForm from "./ConsultationForm";
 
 
 
-const ConsultationFormSection = () => {  
+const ConsultationFormSection = () => {
 
     return (
         <section className="bg-[#F7F8FA] px-4 py-10 sm:px-6 sm:py-14 lg:py-16">
@@ -18,7 +18,7 @@ const ConsultationFormSection = () => {
                 </div>
 
                 <h2 className="text-3xl font-bold leading-tight tracking-tight text-secondary-500 sm:text-4xl lg:text-5xl">
-                    Let's Plan Your
+                    Let&apos;s Plan Your
                     <span className="block text-brand-600 sm:inline sm:pl-2">
                         Study Abroad Future
                     </span>

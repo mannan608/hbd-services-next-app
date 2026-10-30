@@ -12,7 +12,6 @@ import {
   Quote,
   Sparkles,
   ExternalLink,
-  ArrowUpRight,
 } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
 

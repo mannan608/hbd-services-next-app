@@ -64,9 +64,8 @@ export default function FeaturesSection() {
             <div className="mx-16 h-full bg-gradient-to-r from-blue-300/60 via-emerald-300/60 via-amber-300/60 to-brand-300/60 dark:from-blue-500/30 dark:via-emerald-500/30 dark:via-amber-500/30 dark:to-brand-500/30" />
           </div>
 
-          {features.map((feature, index) => {
+          {features.map((feature) => {
             const IconComponent = feature.icon;
-            const isLast = index === features.length - 1;
             return (
               <div
                 key={feature.title}
