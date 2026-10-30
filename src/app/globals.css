@@ -7,8 +7,9 @@
   --color-white: #ffffff;
   --color-black: #101828;
 
-  --color-brand-25:  #f5f9fe;
-  --color-brand-50:  #eef5fc;
+  /* Primary Brand Blue */
+  --color-brand-25: #f5f9fe;
+  --color-brand-50: #eef5fc;
   --color-brand-100: #d7e7f7;
   --color-brand-200: #b8d3ef;
   --color-brand-300: #8cb7e3;
@@ -20,8 +21,21 @@
   --color-brand-900: #0a3053;
   --color-brand-950: #061d34;
 
-/* --#182F5A */
---color-secondary-500: #182F5A;
+  /* Logo Accent Colors */
+  --color-accent-red: #e8202b;
+  --color-accent-red-light: #fff1f2;
+
+  --color-accent-green: #75bc48;
+  --color-accent-green-light: #f1f9eb;
+
+  --color-accent-cyan: #05abe8;
+  --color-accent-cyan-light: #eaf9ff;
+
+  --color-accent-navy: #193779;
+
+  /* Supporting Colors */
+  --color-sky: #80bde0;
+  --color-sky-light: #e0f4f8;
 
   --color-blue-light-25: #f5fbff;
   --color-blue-light-50: #f0f9ff;

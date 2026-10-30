@@ -24,13 +24,17 @@ type NavbarProps = {
 
 // Navigation configuration
 const services: NavItem[] = [
+     {
+        label: "Study Abroad",
+        href: "/services/study-abroad",
+    },
     {
         label: "Language Academy",
         href: "/services/language-academy",
     },
     {
-        label: "Tech Service",
-        href: "/services/tech-service",
+        label: "Digital Solutions for Education",
+        href: "/services/digital-solutions",
     },
 ];
 
@@ -50,7 +54,8 @@ const destinations: NavItem[] = [
 ];
 
 const navigation: NavItem[] = [
-    { label: "Counsellors", href: "/counsellors" },
+    { label: "Universitys", href: "/universities" },
+    { label: "News", href: "/news" },
     { label: "Events", href: "/events" },
 ];
 
@@ -128,7 +133,7 @@ export default function Navbar({ user = null }: NavbarProps) {
             "relative font-medium transition-colors duration-200",
             mobile
                 ? "block rounded-xl px-4 py-3 text-sm"
-                : "inline-flex items-center py-2 text-sm tracking-wide",
+                : "inline-flex items-center py-2 text-base tracking-wide",
             active
                 ? "text-brand-600"
                 : "text-neutral-600 hover:text-brand-600 dark:text-neutral-300 dark:hover:text-white",
@@ -149,7 +154,7 @@ export default function Navbar({ user = null }: NavbarProps) {
 
     // Desktop dropdown trigger
     const dropdownTriggerClasses = (active: boolean) => [
-        "relative inline-flex items-center gap-1.5 py-2 text-sm font-medium transition-colors duration-200",
+        "relative inline-flex items-center gap-1.5 py-2 text-xs font-medium transition-colors duration-200",
         active
             ? "text-brand-600"
             : "text-neutral-600 hover:text-brand-600 dark:text-neutral-300 dark:hover:text-white",
@@ -200,7 +205,7 @@ export default function Navbar({ user = null }: NavbarProps) {
                     aria-expanded={isOpen}
                     aria-haspopup="true"
                 >
-                    {label}
+                   <span className="text-base font-medium"> {label}</span>
                     <ArrowIcon open={isOpen} />
                 </button>
 
@@ -216,7 +221,7 @@ export default function Navbar({ user = null }: NavbarProps) {
                     <div
                         className="w-72 overflow-hidden rounded-2xl border border-neutral-200 bg-white p-2 shadow-xl shadow-neutral-900/10 dark:border-neutral-800 dark:bg-neutral-900"
                         style={{
-                            width: columns > 1 ? "480px" : "288px",
+                            width: columns > 1 ? "480px" : "330px",
                         }}
                     >
                         <div
@@ -426,6 +431,8 @@ export default function Navbar({ user = null }: NavbarProps) {
 
                         {/* Services */}
                         {renderDropdown("Services", services)}
+                         {/* Destinations Mega Menu */}
+                        {renderDropdown("Destinations", destinations, 2)}
 
                         {/* Normal links */}
                         {navigation.map((item) => (
@@ -441,8 +448,7 @@ export default function Navbar({ user = null }: NavbarProps) {
                             </Link>
                         ))}
 
-                        {/* Destinations Mega Menu */}
-                        {renderDropdown("Destinations", destinations, 2)}
+                       
                     </div>
 
                     {/* Right-side actions */}

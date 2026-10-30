@@ -135,7 +135,7 @@ const LanguageAcademySection = () => {
     <section className="relative overflow-hidden bg-slate-50/60 py-20 dark:bg-slate-950 lg:py-28">
       {/* Ambient background glows */}
       <div className="pointer-events-none absolute top-10 left-10 h-96 w-96 rounded-full bg-brand-500/5 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-10 right-10 h-96 w-96 rounded-full bg-indigo-500/5 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-10 right-10 h-96 w-96 rounded-full bg-brand-500/5 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
@@ -179,7 +179,7 @@ const LanguageAcademySection = () => {
               >
                 <div>
                   {/* Icon */}
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-50 to-indigo-50 text-brand-600 border border-brand-100 shadow-sm transition-transform duration-500 group-hover:scale-110 group-hover:bg-brand-600 group-hover:text-white dark:bg-neutral-800 dark:border-neutral-700">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 border border-brand-100 shadow-sm transition-transform duration-500 group-hover:scale-110 group-hover:bg-brand-600 group-hover:text-white dark:bg-neutral-800 dark:border-neutral-700">
                     <IconComponent className="h-6 w-6" />
                   </div>
 
@@ -230,7 +230,7 @@ const LanguageAcademySection = () => {
           {/* Formats Box */}
           <div className="lg:col-span-7 flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-white p-8 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
             <div>
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 mb-4 dark:bg-neutral-800 dark:text-indigo-400">
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600 mb-4 dark:bg-neutral-800 dark:text-brand-400">
                 <CalendarDays className="h-5 w-5" />
               </div>
               <h3 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
@@ -259,7 +259,7 @@ const LanguageAcademySection = () => {
           </div>
 
           {/* Student Benefits & CTA Card */}
-          <div className="lg:col-span-5 flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-gradient-to-br from-slate-900 to-indigo-950 p-8 shadow-xl text-white">
+          <div className="lg:col-span-5 flex flex-col justify-between rounded-3xl border border-slate-200/80 bg-gradient-to-br from-slate-900 to-brand-950 p-8 shadow-xl text-white">
             <div>
               <h3 className="text-xl font-bold tracking-tight">
                 What every student gets
