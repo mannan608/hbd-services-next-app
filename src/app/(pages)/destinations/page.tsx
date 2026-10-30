@@ -14,12 +14,10 @@ import {
   ChevronDown,
   Sparkles,
   Globe2,
-  Clock,
-  Wallet,
-  Users,
   ArrowUpRight,
 } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
+import Link from 'next/link';
 
 // ==========================================
 // Types
@@ -614,10 +612,9 @@ export default function Destinations() {
           >
 
             {filteredDestinations.map((item) => (
-              <article
-                key={item.id}
-                className="group flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-300 hover:shadow-[0_24px_48px_-16px_rgba(25,104,178,0.22)] dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-brand-700"
-              >
+              <Link href={`/destinations/${item.id}`} key={item.id}>
+             
+              <article className="group flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-300 hover:shadow-[0_24px_48px_-16px_rgba(25,104,178,0.22)] dark:border-neutral-800 dark:bg-neutral-900 dark:hover:border-brand-700">
 
                 {/* Image */}
                 <div className="relative h-60 overflow-hidden bg-brand-50 sm:h-64 dark:bg-neutral-800">
@@ -729,6 +726,7 @@ export default function Destinations() {
                   </div>
                 </div>
               </article>
+               </Link>
             ))}
           </div>
         ) : (
@@ -759,202 +757,7 @@ export default function Destinations() {
           </div>
         )}
       </section>
-
-      {/* ==================================
-          DESTINATION DETAILS MODAL
-      ================================== */}
-
-      {activeDestination && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-brand-950/70 p-3 backdrop-blur-sm sm:p-6"
-          onMouseDown={(e) => {
-            if (e.target === e.currentTarget) {
-              setActiveDestination(null);
-            }
-          }}
-        >
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="destination-modal-title"
-            className="relative my-auto max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white shadow-2xl dark:bg-neutral-900"
-          >
-
-            {/* Modal Image */}
-            <div className="relative h-56 sm:h-72">
-
-              <img
-                src={activeDestination.image}
-                alt={activeDestination.title}
-                className="h-full w-full object-cover"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-brand-950/20 to-transparent" />
-
-              <button
-                type="button"
-                onClick={() => setActiveDestination(null)}
-                aria-label="Close destination details"
-                className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur-md transition hover:bg-white hover:text-brand-950"
-              >
-                <X className="h-5 w-5" />
-              </button>
-
-              <div className="absolute bottom-5 left-5 right-5">
-                <div className="mb-2 flex items-center gap-2 text-sm text-white/90">
-                  <span>{activeDestination.flag}</span>
-                  {activeDestination.country}
-                </div>
-
-                <h2
-                  id="destination-modal-title"
-                  className="text-3xl font-bold text-white sm:text-4xl"
-                >
-                  {activeDestination.title}
-                </h2>
-              </div>
-            </div>
-
-            {/* Modal Content */}
-            <div className="p-5 sm:p-8">
-
-              <p className="text-sm leading-7 text-neutral-500 dark:text-neutral-400">
-                {activeDestination.description}
-              </p>
-
-              {/* Statistics */}
-              <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                {[
-                  {
-                    icon: Users,
-                    label: 'International Students',
-                    value: activeDestination.keyStats.internationalStudents,
-                  },
-                  {
-                    icon: Clock,
-                    label: 'Work Rights',
-                    value: activeDestination.keyStats.workRights,
-                  },
-                  {
-                    icon: Wallet,
-                    label: 'Living Cost',
-                    value: activeDestination.keyStats.livingCost,
-                  },
-                ].map((stat) => {
-                  const Icon = stat.icon;
-
-                  return (
-                    <div
-                      key={stat.label}
-                      className="rounded-xl border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-800/60"
-                    >
-                      <Icon className="h-5 w-5 text-brand-500" />
-
-                      <div className="mt-3 text-xs text-neutral-500 dark:text-neutral-400">
-                        {stat.label}
-                      </div>
-
-                      <div className="mt-1 text-sm font-bold text-brand-950 dark:text-white">
-                        {stat.value}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Universities */}
-              <div className="mt-8">
-                <h3 className="flex items-center gap-2 text-base font-bold text-brand-950 dark:text-white">
-                  <GraduationCap className="h-5 w-5 text-brand-500" />
-                  Top Universities
-                </h3>
-
-                <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  {activeDestination.topUniversities.map((university) => (
-                    <div
-                      key={university}
-                      className="flex items-center gap-2 rounded-lg bg-brand-25 p-3 text-sm font-medium text-neutral-700 dark:bg-neutral-800/60 dark:text-neutral-200"
-                    >
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-accent-green" />
-                      {university}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Highlights */}
-              <div className="mt-8">
-                <h3 className="text-base font-bold text-brand-950 dark:text-white">
-                  Destination Highlights
-                </h3>
-
-                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {activeDestination.highlights.map((highlight) => (
-                    <div
-                      key={highlight}
-                      className="flex items-start gap-2.5 text-sm leading-6 text-neutral-600 dark:text-neutral-400"
-                    >
-                      <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-accent-green" />
-                      {highlight}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Popular For */}
-              <div className="mt-8">
-                <h3 className="text-base font-bold text-brand-950 dark:text-white">
-                  Popular For
-                </h3>
-
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {activeDestination.popularFor.map((feature) => (
-                    <span
-                      key={feature}
-                      className="rounded-full bg-brand-50 px-3 py-2 text-xs font-semibold text-brand-600 dark:bg-brand-950 dark:text-brand-200"
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Cost and Visa */}
-              <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <div className="rounded-xl border border-neutral-200 p-4 dark:border-neutral-800">
-                  <div className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
-                    Estimated Annual Tuition
-                  </div>
-
-                  <div className="mt-2 text-lg font-bold text-brand-600 dark:text-brand-300">
-                    {activeDestination.avgCost}
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-neutral-200 p-4 dark:border-neutral-800">
-                  <div className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
-                    Visa Processing
-                  </div>
-
-                  <div className="mt-2 text-lg font-bold text-brand-600 dark:text-brand-300">
-                    {activeDestination.visaProcessing}
-                  </div>
-                </div>
-              </div>
-
-              {/* Close */}
-              <button
-                type="button"
-                onClick={() => setActiveDestination(null)}
-                className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-brand-500 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-brand-700"
-              >
-                Close Details
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+    
     </main>
   );
 }
