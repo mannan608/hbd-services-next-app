@@ -1,21 +1,11 @@
 
-import {
-  Search,
-  GraduationCap,
-  X,
-  ArrowRight,
-  Compass,
-  Sparkles,
-  Globe2,
-} from 'lucide-react';
-import { useInView } from '@/hooks/useInView';
-import DestinationFilters from '@/app/components/destinations/DestinationFilters';
+import DestinationFilters, {
+  type Destination,
+} from '@/app/components/destinations/DestinationFilters';
 
-
-
-const destinations= [
+const destinations: Destination[] = [
   {
-    id: 'aus-sydney',
+    id: '101',
     title: 'Sydney',
     country: 'Australia',
     region: 'Australia',
@@ -42,7 +32,7 @@ const destinations= [
     ],
   },
   {
-    id: 'aus-melbourne',
+    id: '102',
     title: 'Melbourne',
     country: 'Australia',
     region: 'Australia',
@@ -69,7 +59,7 @@ const destinations= [
     ],
   },
   {
-    id: 'uk-london',
+    id: '103',
     title: 'London',
     country: 'United Kingdom',
     region: 'Europe',
@@ -96,7 +86,7 @@ const destinations= [
     ],
   },
   {
-    id: 'usa-boston',
+    id: '104',
     title: 'Boston & Cambridge',
     country: 'United States',
     region: 'North America',
@@ -123,7 +113,7 @@ const destinations= [
     ],
   },
   {
-    id: 'can-toronto',
+    id: '105',
     title: 'Toronto',
     country: 'Canada',
     region: 'North America',
@@ -150,7 +140,7 @@ const destinations= [
     ],
   },
   {
-    id: 'sg-singapore',
+    id: '106',
     title: 'Singapore City',
     country: 'Singapore',
     region: 'Asia',
@@ -177,7 +167,7 @@ const destinations= [
     ],
   },
   {
-    id: 'nz-auckland',
+    id: '107',
     title: 'Auckland',
     country: 'New Zealand',
     region: 'Australia',
@@ -204,7 +194,7 @@ const destinations= [
     ],
   },
   {
-    id: 'ger-munich',
+    id: '108',
     title: 'Munich',
     country: 'Germany',
     region: 'Europe',
@@ -232,7 +222,6 @@ const destinations= [
   },
 ];
 const regions = [
-  'All',
   'Africa',
   'Asia',
   'Australia',
@@ -242,14 +231,11 @@ const regions = [
 ];
 
 export default function Destinations() {
- 
+
 
   return (
     <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
-
- 
- <DestinationFilters destinations={destinations} regions={regions} />
-    
+      <DestinationFilters destinations={destinations} regions={regions} />
     </main>
   );
 }
