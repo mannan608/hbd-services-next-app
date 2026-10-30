@@ -7,6 +7,7 @@ const destinations: Destination[] = [
   {
     id: '101',
     title: 'Sydney',
+    slug: 'sydney',
     country: 'Australia',
     region: 'Australia',
     flag: '🇦🇺',
@@ -34,6 +35,7 @@ const destinations: Destination[] = [
   {
     id: '102',
     title: 'Melbourne',
+    slug: 'melbourne',
     country: 'Australia',
     region: 'Australia',
     flag: '🇦🇺',
@@ -61,6 +63,7 @@ const destinations: Destination[] = [
   {
     id: '103',
     title: 'London',
+    slug: 'london',
     country: 'United Kingdom',
     region: 'Europe',
     flag: '🇬🇧',
@@ -88,6 +91,7 @@ const destinations: Destination[] = [
   {
     id: '104',
     title: 'Boston & Cambridge',
+    slug: 'boston-and-cambridge',
     country: 'United States',
     region: 'North America',
     flag: '🇺🇸',
@@ -115,6 +119,7 @@ const destinations: Destination[] = [
   {
     id: '105',
     title: 'Toronto',
+    slug: 'toronto',
     country: 'Canada',
     region: 'North America',
     flag: '🇨🇦',
@@ -142,6 +147,7 @@ const destinations: Destination[] = [
   {
     id: '106',
     title: 'Singapore City',
+    slug: 'singapore',
     country: 'Singapore',
     region: 'Asia',
     flag: '🇸🇬',
@@ -169,6 +175,7 @@ const destinations: Destination[] = [
   {
     id: '107',
     title: 'Auckland',
+    slug: 'auckland',
     country: 'New Zealand',
     region: 'Australia',
     flag: '🇳🇿',
@@ -196,6 +203,7 @@ const destinations: Destination[] = [
   {
     id: '108',
     title: 'Munich',
+    slug: 'munich',
     country: 'Germany',
     region: 'Europe',
     flag: '🇩🇪',
@@ -231,8 +239,6 @@ const regions = [
 ];
 
 export default function Destinations() {
-
-
   return (
     <main className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
       <DestinationFilters destinations={destinations} regions={regions} />

@@ -16,10 +16,12 @@ import {
   X,
 } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
+import Link from "next/link";
 
 export type Destination = {
   id: string;
   title: string;
+  slug: string;
   country: string;
   region: string;
   flag: string;
@@ -63,6 +65,7 @@ const ResultCard = ({
   const { ref, visible } = useInView<HTMLDivElement>();
 
   return (
+    <Link href={`/destinations/${destination.slug}`}>
     <article
       ref={ref}
       style={{ transitionDelay: `${(index % 3) * 90}ms` }}
@@ -159,6 +162,7 @@ const ResultCard = ({
         </div>
       </div>
     </article>
+    </Link>
   );
 };
 
