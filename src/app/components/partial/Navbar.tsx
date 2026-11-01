@@ -7,9 +7,13 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import logo from "@/app/assets/brand/logo.webp";
 
+import { destinations as destinationData } from "@/data/destinations/destination-list";
+
 type NavItem = {
     label: string;
     href: string;
+    flag?: string;
+    code?: string; // ISO country code for flag image
 };
 
 type NavbarUser = {
@@ -24,7 +28,7 @@ type NavbarProps = {
 
 // Navigation configuration
 const services: NavItem[] = [
-     {
+    {
         label: "Study Abroad",
         href: "/services/study-abroad",
     },
@@ -38,20 +42,12 @@ const services: NavItem[] = [
     },
 ];
 
-const destinations: NavItem[] = [
-    { label: "United Kingdom", href: "/destinations/uk" },
-    { label: "United States", href: "/destinations/usa" },
-    { label: "Canada", href: "/destinations/canada" },
-    { label: "Australia", href: "/destinations/australia" },
-    { label: "New Zealand", href: "/destinations/new-zealand" },
-    { label: "Malaysia", href: "/destinations/malaysia" },
-    { label: "Germany", href: "/destinations/germany" },
-    { label: "France", href: "/destinations/france" },
-    { label: "Italy", href: "/destinations/italy" },
-    { label: "Ireland", href: "/destinations/ireland" },
-    { label: "Japan", href: "/destinations/japan" },
-    { label: "South Korea", href: "/destinations/south-korea" },
-];
+const destinations: NavItem[] = destinationData.map((destination) => ({
+    label: destination.name,
+    href: `/destinations/${destination.slug}`,
+    flag: destination.flag,
+    code: destination.flagCode,
+}));
 
 const navigation: NavItem[] = [
     { label: "Universitys", href: "/universities" },
@@ -99,12 +95,15 @@ export default function Navbar({ user = null }: NavbarProps) {
     }, []);
 
     // Close navigation after route change
-    useEffect(() => {
+    const [previousPathname, setPreviousPathname] = useState(pathname);
+
+    if (previousPathname !== pathname) {
+        setPreviousPathname(pathname);
         setMobileMenuOpen(false);
         setActiveDropdown(null);
         setMobileServicesOpen(false);
         setMobileDestinationsOpen(false);
-    }, [pathname]);
+    }
 
     const closeMobileMenu = () => {
         setMobileMenuOpen(false);
@@ -163,9 +162,8 @@ export default function Navbar({ user = null }: NavbarProps) {
     // Reusable dropdown arrow
     const ArrowIcon = ({ open }: { open: boolean }) => (
         <svg
-            className={`size-5 transition-transform duration-200 ${
-                open ? "rotate-180" : ""
-            }`}
+            className={`size-5 transition-transform duration-200 ${open ? "rotate-180" : ""
+                }`}
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -205,7 +203,7 @@ export default function Navbar({ user = null }: NavbarProps) {
                     aria-expanded={isOpen}
                     aria-haspopup="true"
                 >
-                   <span className="text-base font-medium"> {label}</span>
+                    <span className="text-base font-medium"> {label}</span>
                     <ArrowIcon open={isOpen} />
                 </button>
 
@@ -244,26 +242,36 @@ export default function Navbar({ user = null }: NavbarProps) {
                                 >
                                     <span
                                         className={[
-                                            "flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors",
+                                            "flex size-9 shrink-0 items-center justify-center rounded-lg transition-colors",
                                             isActive(item.href)
                                                 ? "bg-brand-100 text-brand-600 dark:bg-neutral-700"
                                                 : "bg-neutral-100 text-neutral-500 group-hover:bg-brand-50 group-hover:text-brand-600 dark:bg-neutral-800",
                                         ].join(" ")}
                                     >
-                                        <svg
-                                            className="size-4"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth={1.7}
-                                            aria-hidden="true"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M5 12h14M12 5l7 7-7 7"
+                                        {item.flag && item.code ? (
+                                            <Image
+                                                src={`https://flagcdn.com/w20/${item.code.toLowerCase()}.png`}
+                                                width={16}
+                                                height={12}
+                                                alt={`${item.code} flag`}
+                                                className="h-3.5 w-4.5 rounded-xs object-cover shadow-2xs"
                                             />
-                                        </svg>
+                                        ) : (
+                                            <svg
+                                                className="size-4"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth={1.7}
+                                                aria-hidden="true"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M5 12h14M12 5l7 7-7 7"
+                                                />
+                                            </svg>
+                                        )}
                                     </span>
 
                                     <span className="flex-1 font-medium">
@@ -431,7 +439,7 @@ export default function Navbar({ user = null }: NavbarProps) {
 
                         {/* Services */}
                         {renderDropdown("Services", services)}
-                         {/* Destinations Mega Menu */}
+                        {/* Destinations Mega Menu */}
                         {renderDropdown("Destinations", destinations, 2)}
 
                         {/* Normal links */}
@@ -448,7 +456,7 @@ export default function Navbar({ user = null }: NavbarProps) {
                             </Link>
                         ))}
 
-                       
+
                     </div>
 
                     {/* Right-side actions */}

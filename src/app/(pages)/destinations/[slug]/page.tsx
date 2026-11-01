@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import { notFound } from "next/navigation";
 import {
   ArrowUpRight,
@@ -25,6 +25,8 @@ import {
 import { getDestinationBySlug } from "@/data/destinations/destination-list";
 import type { Destination } from "@/data/destinations/destination.types";
 
+export const ensureStatic = "navigation";
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
@@ -43,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const destination = getDestination(slug);
 
-  if (!destination) return { title: "Destination Not Found" };
+  if (!destination) notFound();
 
   return {
     title: `Study in ${destination.name} | Study Abroad`,
@@ -94,14 +96,105 @@ function Card({ children, className = "" }: {
   );
 }
 
-export default async function DestinationDetailsPage({ params }: PageProps) {
+function SkeletonCard({ className = "" }: { className?: string }) {
+  return (
+    <div className={`rounded-2xl border border-slate-200/80 bg-white p-6 ${className}`}>
+      <div className="h-6 w-6 rounded-md bg-slate-100" />
+      <div className="mt-5 h-3 w-1/2 rounded bg-slate-100" />
+      <div className="mt-3 h-3 w-full rounded bg-slate-100" />
+      <div className="mt-2 h-3 w-4/5 rounded bg-slate-100" />
+    </div>
+  );
+}
+
+function DestinationSkeleton() {
+  return (
+    <div className="animate-pulse" aria-hidden="true">
+      {/* Hero */}
+      <div className="bg-[#0B1D36] py-10 lg:py-14">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
+          <div className="space-y-5 lg:col-span-7">
+            <div className="h-8 w-56 rounded-full bg-white/10" />
+            <div className="h-10 w-4/5 rounded bg-white/10" />
+            <div className="h-4 w-full rounded bg-white/10" />
+            <div className="h-4 w-5/6 rounded bg-white/10" />
+            <div className="flex flex-wrap gap-3 pt-2">
+              <div className="h-11 w-48 rounded-xl bg-white/10" />
+              <div className="h-11 w-40 rounded-xl bg-white/10" />
+            </div>
+          </div>
+          <div className="h-80 rounded-2xl bg-white/10 lg:col-span-5" />
+        </div>
+      </div>
+
+      {/* Section nav */}
+      <div className="border-b border-slate-200 bg-white">
+        <div className="mx-auto flex max-w-7xl gap-2 overflow-hidden px-4 py-3 sm:px-8 lg:px-10">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className="h-8 w-24 shrink-0 rounded-lg bg-slate-100" />
+          ))}
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+        {/* Overview */}
+        <div className="grid gap-6 py-8 lg:grid-cols-12 lg:py-10">
+          <div className="rounded-2xl border border-slate-200/80 bg-white p-7 sm:p-10 lg:col-span-8 lg:p-12">
+            <div className="h-3 w-40 rounded bg-slate-100" />
+            <div className="mt-5 h-8 w-2/3 rounded bg-slate-100" />
+            <div className="mt-6 space-y-3">
+              <div className="h-4 w-full rounded bg-slate-100" />
+              <div className="h-4 w-full rounded bg-slate-100" />
+              <div className="h-4 w-4/5 rounded bg-slate-100" />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 lg:col-span-4">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div key={index} className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 sm:p-6">
+                <div className="h-6 w-6 rounded-md bg-slate-100" />
+                <div>
+                  <div className="h-6 w-16 rounded bg-slate-100" />
+                  <div className="mt-2 h-3 w-20 rounded bg-slate-100" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Card sections */}
+        {Array.from({ length: 2 }).map((_, section) => (
+          <div key={section} className="py-8 lg:py-10">
+            <div className="h-8 w-64 rounded bg-slate-100" />
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <SkeletonCard key={index} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function DestinationDetailsPage({ params }: PageProps) {
+  return (
+    <main className="min-h-screen">
+      <Suspense fallback={<DestinationSkeleton />}>
+        <DestinationContent params={params} />
+      </Suspense>
+    </main>
+  );
+}
+
+async function DestinationContent({ params }: PageProps) {
   const { slug } = await params;
   const destination = getDestination(slug);
 
   if (!destination) notFound();
 
   return (
-    <main className="min-h-screen">
+    <>
       <DestinationHeader destination={destination} />
       <DestinationNav />
 
@@ -381,6 +474,6 @@ export default async function DestinationDetailsPage({ params }: PageProps) {
 
         <DestinationCTA />
       </div>
-    </main>
+    </>
   );
 }

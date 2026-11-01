@@ -4,6 +4,8 @@ export interface DestinationListItem {
   id: number;
   slug: string;
   code: string;
+  /** ISO 3166-1 alpha-2 code used for flag images (e.g. "US", "GB"). */
+  flagCode: string;
   title: string;
   name: string;
   country: string;
