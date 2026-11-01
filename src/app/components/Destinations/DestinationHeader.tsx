@@ -1,203 +1,179 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState, type FormEvent } from "react";
 import {
-  GraduationCap,
-  CheckCircle2,
-  Award,
-  Clock,
-  Sparkles,
   ArrowRight,
+  CheckCircle2,
+  GraduationCap,
   Send,
+  Sparkles,
 } from "lucide-react";
+import type { DestinationDetail } from "@/data/destinations/destination.types";
 
-interface DestinationHeroProps {
-  destination?: {
-    code?: string;
-    name?: string;
-    hero?: {
-      description?: string;
-    };
-  };
+interface Props {
+  destination: DestinationDetail;
 }
 
-const DestinationHeader = ({ destination }: DestinationHeroProps) => {
-
-    // Default dynamic data with fallbacks
-  const code = destination?.code || "UK";
-  const name = destination?.name || "United Kingdom";
-  const description =
-    destination?.hero?.description ||
-    "Unlock world-class education opportunities, generous scholarships, and post-study work visas with personalized guidance from certified study abroad experts.";
-
+export default function DestinationHeader({ destination }: Props) {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
-    targetIntake: "Sept 2026",
+    targetIntake: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form Submitted:", formData);
-    // Handle form submission logic here
-  };
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    // Replace this with your API request.
+    console.log("Consultation request:", {
+      ...formData,
+      destination: destination.slug,
+    });
+  }
+
   return (
-    <header className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-neutral-dark text-white py-8 md:py-10 lg:py-12">
-      {/* Background Decorative Glows */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent-cyan/10 rounded-full blur-3xl pointer-events-none" />
+    <header className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-[#0B1D36] py-10 text-white lg:py-14">
+      <div className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-brand-500/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* Left Column - Hero Content */}
-          <div className="lg:col-span-7 space-y-5 text-center lg:text-left">
-            
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-brand-500/15 text-brand-200 border border-brand-400/20 backdrop-blur-md shadow-sm">
-              <GraduationCap className="w-4 h-4 text-accent-cyan" />
-              <span>Premier {code} Education Consultancy</span>
-            </div>
-
-            {/* Main Title */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15]">
-              Study at{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-light-300 via-brand-300 to-accent-cyan">
-                World-Class
-              </span>{" "}
-              {name} Universities
-            </h1>
-
-            {/* Description */}
-            <p className="text-neutral-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
-              {description}
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start pt-2">
-              <a
-                href="#consultation"
-                className="inline-flex items-center gap-2 px-8 text-sm py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-medium rounded-xl shadow-lg shadow-brand-900/50 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
-              >
-                <span>Book Free Consultation</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
-              <a
-                href="#universities"
-                className="inline-flex items-center gap-2 px-8 text-sm py-2.5 bg-white/10 hover:bg-white/15 text-white font-semibold rounded-xl backdrop-blur-md border border-white/10 transition-all duration-200"
-              >
-                <span>Explore Universities</span>
-              </a>
-            </div>
-
-            {/* Feature Badges Grid */}
-            <div className="pt-4 border-t border-brand-800/60 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-neutral-200 max-w-xl">
-              <div className="flex items-center gap-2.5 justify-center lg:justify-start text-xs">
-                <CheckCircle2 className="w-3 h-3 text-accent-green flex-shrink-0" />
-                <span className="font-medium">130+ Partner Universities</span>
-              </div>
-              <div className="flex items-center gap-2.5 justify-center lg:justify-start text-xs">
-                <Award className="w-3 h-3 text-accent-green flex-shrink-0" />
-                <span className="font-medium">Up to £5,000 Scholarships</span>
-              </div>
-              <div className="flex items-center gap-2.5 justify-center lg:justify-start text-xs">
-                <Clock className="w-3 h-3 text-accent-green flex-shrink-0" />
-                <span className="font-medium">Fast Track Admission</span>
-              </div>
-            </div>
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
+        <div className="space-y-5 text-center lg:col-span-7 lg:text-left">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold text-brand-100">
+            <GraduationCap className="h-4 w-4 text-cyan-300" />
+            {destination.hero.badge}
           </div>
 
-          {/* Right Column - Lead Form Card */}
-          <div id="consultation" className="lg:col-span-5">
-            <div className="bg-white/95 backdrop-blur-xl p-6 sm:p-8 rounded-2xl shadow-2xl border border-neutral-100 text-neutral-900">
-              
-              <div className="mb-6">
-                <div className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-600 uppercase tracking-wider mb-1">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  Free Express Assessment
-                </div>
-                <h2 className="text-2xl font-extrabold text-neutral-900">Refine Your Future</h2>
-                <p className="text-xs sm:text-sm text-neutral-500 mt-1">
-                  Fill in your details for immediate application assistance.
-                </p>
+          <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+            Study at{" "}
+            <span className="bg-gradient-to-r from-blue-200 via-brand-300 to-cyan-300 bg-clip-text text-transparent">
+              {destination.hero.title}
+            </span>{" "}
+            {destination.name} Universities
+          </h1>
+
+          <p className="mx-auto max-w-2xl text-sm leading-7 text-slate-300 sm:text-base lg:mx-0">
+            {destination.hero.description}
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-3 pt-2 lg:justify-start">
+            <a
+              href="#consultation"
+              className="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-brand-600"
+            >
+              Book Free Consultation <ArrowRight size={17} />
+            </a>
+            <a
+              href="#universities"
+              className="inline-flex items-center rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/15"
+            >
+              Explore Universities
+            </a>
+          </div>
+
+          <div className="grid gap-3 border-t border-white/10 pt-5 text-left sm:grid-cols-3">
+            {destination.hero.features.map((feature) => (
+              <div key={feature} className="flex items-center justify-center gap-2 text-xs text-slate-200 lg:justify-start">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div id="consultation" className="scroll-mt-28 lg:col-span-5">
+          <div className="rounded-2xl border border-white/60 bg-white p-6 text-slate-900 shadow-2xl sm:p-8">
+            <div className="mb-6">
+              <div className="mb-2 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-600">
+                <Sparkles size={15} /> Free Express Assessment
+              </div>
+              <h2 className="text-2xl font-extrabold text-[#0B1D36]">
+                Start Your Study Journey
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-500">
+                Share your details and our counsellor can contact you.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="fullName" className="mb-1.5 block text-xs font-semibold text-slate-700">
+                  Full Name
+                </label>
+                <input
+                  id="fullName"
+                  required
+                  autoComplete="name"
+                  value={formData.fullName}
+                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                  placeholder="Your full name"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/20"
+                />
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="email" className="mb-1.5 block text-xs font-semibold text-slate-700">
+                  Email Address
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="you@example.com"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/20"
+                />
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 uppercase mb-1.5">
-                    Full Name
+                  <label htmlFor="phone" className="mb-1.5 block text-xs font-semibold text-slate-700">
+                    Phone Number
                   </label>
                   <input
-                    type="text"
+                    id="phone"
+                    type="tel"
                     required
-                    placeholder="John Doe"
-                    value={formData.fullName}
-                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    className="w-full px-4 py-3 rounded-lg border border-neutral-200 bg-neutral-25 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all outline-none text-sm text-neutral-900 placeholder:text-neutral-400"
+                    autoComplete="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder="+880..."
+                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/20"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 uppercase mb-1.5">
-                    Email Address
+                  <label htmlFor="targetIntake" className="mb-1.5 block text-xs font-semibold text-slate-700">
+                    Target Intake
                   </label>
-                  <input
-                    type="email"
+                  <select
+                    id="targetIntake"
                     required
-                    placeholder="john@example.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-lg border border-neutral-200 bg-neutral-25 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all outline-none text-sm text-neutral-900 placeholder:text-neutral-400"
-                  />
+                    value={formData.targetIntake}
+                    onChange={(e) => setFormData({ ...formData, targetIntake: e.target.value })}
+                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-3 text-sm outline-none transition focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-500/20"
+                  >
+                    <option value="">Select intake</option>
+                    <option value="January 2027">January 2027</option>
+                    <option value="May 2027">May 2027</option>
+                    <option value="September 2027">September 2027</option>
+                    <option value="January 2028">January 2028</option>
+                  </select>
                 </div>
+              </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs font-semibold text-neutral-700 uppercase mb-1.5">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="+44..."
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg border border-neutral-200 bg-neutral-25 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all outline-none text-sm text-neutral-900 placeholder:text-neutral-400"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-neutral-700 uppercase mb-1.5">
-                      Target Intake
-                    </label>
-                    <select
-                      value={formData.targetIntake}
-                      onChange={(e) => setFormData({ ...formData, targetIntake: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg border border-neutral-200 bg-neutral-25 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all outline-none text-sm text-neutral-700 cursor-pointer"
-                    >
-                      <option value="Sept 2026">Sept 2026</option>
-                      <option value="Jan 2027">Jan 2027</option>
-                      <option value="May 2027">May 2027</option>
-                    </select>
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full mt-2 py-4 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl shadow-md hover:shadow-lg transition-all duration-200 text-sm uppercase tracking-wide flex items-center justify-center gap-2"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>Get Free Assessment</span>
-                </button>
-              </form>
-            </div>
+              <button
+                type="submit"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-500 py-3.5 text-sm font-bold text-white transition hover:bg-brand-600"
+              >
+                <Send size={16} /> Get Free Assessment
+              </button>
+            </form>
           </div>
-
         </div>
       </div>
     </header>
-  )
+  );
 }
-
-export default DestinationHeader

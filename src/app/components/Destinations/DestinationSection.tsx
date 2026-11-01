@@ -1,77 +1,26 @@
 "use client";
-
+import { Metadata } from "next";
 import { ArrowRight, Zap } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
 import DestinationCard from "./DestinationCard";
 
-import malaysia from "@/app/assets/destinations/malaysia.webp";
-import unitedStates from "@/app/assets/destinations/united-states.webp";
-import unitedkingdom from "@/app/assets/destinations/united-kingdom.webp";
-import canada from "@/app/assets/destinations/canada.webp";
-import australia from "@/app/assets/destinations/australia.webp";
-import newZealand from "@/app/assets/destinations/new-zealand.webp";
+
 import Link from "next/link";
 
 
-const destinations = [
-  {
-    "slug": "united-states",
-    "name": "United States",
-    "image": unitedStates,
-    "hero": {
-      "description": "Home to many of the world's top-ranked universities, offering flexible academic programs and vibrant campus cultures."
-    },
-    "popular": true
-  },
-  {
-    "slug": "united-kingdom",
-    "name": "United Kingdom",
-    "image": unitedkingdom,
-    "hero": {
-      "description": "Experience centuries of academic excellence with shorter, intensive undergraduate and postgraduate degree structures."
-    },
-    "popular": true
-  },
-  {
-    "slug": "canada",
-    "name": "Canada",
-    "image": canada,
-    "hero": {
-      "description": "Renowned for high safety standards, affordable tuition fees, and welcoming immigration pathways for international graduates."
-    },
-    "popular": false
-  },
-  {
-    "slug": "australia",
-    "name": "Australia",
-    "image": australia,
-    "hero": {
-      "description": "Combine world-class education with a high quality of life, sunny coastal climates, and fantastic part-time work rights."
-    },
-    "popular": true
-  },
-  {
-    "slug": "new-zealand",
-    "name": "New Zealand",
-    "image": newZealand,
-    "hero": {
-      "description": "Benefit from tuition-free or low-cost education at public universities with exceptional engineering and tech programs."
-    },
-    "popular": false
-  },
-  {
-    "slug": "malaysia",
-    "name": "Malaysia",
-    "image": malaysia,
-    "hero": {
-      "description": "A vibrant, English-speaking hub in Europe with a booming tech and pharma industry offering great post-study work options."
-    },
-    "popular": false
-  }
-]
+import { getAllDestinations } from "@/data/destinations/destination-list";
+
+
+export const metadata: Metadata = {
+  title: "Study Abroad Destinations",
+  description:
+    "Explore international study destinations and find the right country for your education journey.",
+};
 
 const DestinationSection = () => {
   const { ref, visible } = useInView();
+
+  const destinations = getAllDestinations();
 
   return (
     <section className="relative overflow-hidden bg-slate-50 pb-16 pt-10 dark:bg-slate-950 md:pb-24">
@@ -108,11 +57,10 @@ const DestinationSection = () => {
 
         {/* Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
-          {destinations.map((destination, index) => (
+          {destinations.map((destination) => (
             <DestinationCard
-              key={destination.slug}
+              key={destination.id}
               destination={destination}
-              index={index}
             />
           ))}
         </div>
