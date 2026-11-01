@@ -2,7 +2,7 @@
 import type { DestinationDetail } from "./destination.types";
 
 
-export const destinationDetails = {
+export const destinationDetails: Record<string, DestinationDetail> = {
   // UNITED STATES
   "united-states": {
     hero: {
@@ -228,24 +228,28 @@ export const destinationDetails = {
 
     scholarships: [
       {
+        id: 1,
         name: "International Student Scholarships",
         university: "Harvard University",
         amount: "Need-based aid; varies",
         href: "https://college.harvard.edu/financial-aid",
       },
       {
+        id: 2,
         name: "Financial Aid Opportunities",
         university: "Stanford University",
         amount: "Eligibility-based",
         href: "https://financialaid.stanford.edu/",
       },
       {
+        id: 3,
         name: "Scholarships and Financial Aid",
         university: "MIT",
         amount: "Varies by eligibility",
         href: "https://sfs.mit.edu/",
       },
       {
+        id: 4,
         name: "Financial Aid Programs",
         university: "University of California, Berkeley",
         amount: "Varies by program",
@@ -527,24 +531,28 @@ export const destinationDetails = {
 
     scholarships: [
       {
+        id: 1,
         name: "Global Scholarships",
         university: "University College London",
         amount: "Varies by scholarship",
         href: "https://www.ucl.ac.uk/scholarships/",
       },
       {
+        id: 2,
         name: "International Scholarships",
         university: "University of Oxford",
         amount: "Varies by scholarship",
         href: "https://www.ox.ac.uk/admissions/graduate/fees-and-funding",
       },
       {
+        id: 3,
         name: "Student Funding Opportunities",
         university: "University of Edinburgh",
         amount: "Varies by scholarship",
         href: "https://www.ed.ac.uk/student-funding",
       },
       {
+        id: 4,
         name: "Scholarships and Bursaries",
         university: "University of Manchester",
         amount: "Varies by scholarship",
@@ -826,24 +834,28 @@ export const destinationDetails = {
 
     scholarships: [
       {
+        id: 1,
         name: "International Student Awards",
         university: "University of Toronto",
         amount: "Varies by award",
         href: "https://future.utoronto.ca/finances/awards/",
       },
       {
+        id: 2,
         name: "International Scholarships",
         university: "University of British Columbia",
         amount: "Varies by award",
         href: "https://you.ubc.ca/financial-planning/scholarships-awards-international-students/",
       },
       {
+        id: 3,
         name: "Entrance Scholarships",
         university: "McGill University",
         amount: "Varies by award",
         href: "https://www.mcgill.ca/studentaid/",
       },
       {
+        id: 4,
         name: "International Student Funding",
         university: "University of Alberta",
         amount: "Varies by award",
@@ -1126,24 +1138,28 @@ export const destinationDetails = {
 
     scholarships: [
       {
+        id: 1,
         name: "Melbourne International Undergraduate Scholarship",
         university: "University of Melbourne",
         amount: "Varies by scholarship",
         href: "https://scholarships.unimelb.edu.au/",
       },
       {
+        id: 2,
         name: "International Scholarships",
         university: "University of Sydney",
         amount: "Varies by scholarship",
         href: "https://www.sydney.edu.au/scholarships/",
       },
       {
+        id: 3,
         name: "International Merit Scholarships",
         university: "Monash University",
         amount: "Varies by scholarship",
         href: "https://www.monash.edu/study/fees-scholarships/scholarships",
       },
       {
+        id: 4,
         name: "International Scholarships",
         university: "University of Queensland",
         amount: "Varies by scholarship",
@@ -1426,24 +1442,28 @@ export const destinationDetails = {
 
     scholarships: [
       {
+        id: 1,
         name: "International Student Scholarships",
         university: "University of Auckland",
         amount: "Varies by scholarship",
         href: "https://www.auckland.ac.nz/en/study/scholarships-and-awards.html",
       },
       {
+        id: 2,
         name: "International Scholarships",
         university: "University of Otago",
         amount: "Varies by scholarship",
         href: "https://www.otago.ac.nz/study/scholarships",
       },
       {
+        id: 3,
         name: "Scholarship Opportunities",
         university: "Victoria University of Wellington",
         amount: "Varies by scholarship",
         href: "https://www.wgtn.ac.nz/scholarships",
       },
       {
+        id: 4,
         name: "International Student Scholarships",
         university: "University of Canterbury",
         amount: "Varies by scholarship",
@@ -1725,24 +1745,28 @@ export const destinationDetails = {
 
     scholarships: [
       {
+        id: 1,
         name: "International Student Scholarships",
         university: "University of Malaya",
         amount: "Varies by scholarship",
         href: "https://www.um.edu.my/",
       },
       {
+        id: 2,
         name: "Scholarship Opportunities",
         university: "Universiti Putra Malaysia",
         amount: "Varies by scholarship",
         href: "https://www.upm.edu.my/",
       },
       {
+        id: 3,
         name: "International Student Scholarships",
         university: "Taylor's University",
         amount: "Varies by scholarship",
         href: "https://university.taylors.edu.my/",
       },
       {
+        id: 4,
         name: "Scholarship Opportunities",
         university: "Monash University Malaysia",
         amount: "Varies by scholarship",
@@ -1799,7 +1823,7 @@ export const destinationDetails = {
       ],
     },
   },
-} satisfies Record<string, DestinationDetail>;
+};
 
 /** Get full destination details by URL slug. */
 export const getDestinationDetailsBySlug = (

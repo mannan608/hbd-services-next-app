@@ -128,6 +128,7 @@ export interface DestinationDetail {
   };
 
   scholarships: {
+    id: number;
     name: string;
     university: string;
     amount: string;

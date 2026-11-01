@@ -8,10 +8,10 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
-import type { DestinationDetail } from "@/data/destinations/destination.types";
+import type { Destination } from "@/data/destinations/destination.types";
 
 interface Props {
-  destination: DestinationDetail;
+  destination: Destination;
 }
 
 export default function DestinationHeader({ destination }: Props) {

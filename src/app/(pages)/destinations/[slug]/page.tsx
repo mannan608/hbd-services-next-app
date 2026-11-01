@@ -22,18 +22,26 @@ import {
   destinationDetails,
   getDestinationDetailsBySlug,
 } from "@/data/destinations/destination-details";
+import { getDestinationBySlug } from "@/data/destinations/destination-list";
+import type { Destination } from "@/data/destinations/destination.types";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+function getDestination(slug: string): Destination | undefined {
+  const detail = getDestinationDetailsBySlug(slug);
+  const listItem = getDestinationBySlug(slug);
+  return detail && listItem ? { ...listItem, ...detail } : undefined;
+}
+
 export function generateStaticParams() {
-  return destinationDetails.map(({ slug }) => ({ slug }));
+  return Object.keys(destinationDetails).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const destination = getDestinationDetailsBySlug(slug);
+  const destination = getDestination(slug);
 
   if (!destination) return { title: "Destination Not Found" };
 
@@ -88,7 +96,7 @@ function Card({ children, className = "" }: {
 
 export default async function DestinationDetailsPage({ params }: PageProps) {
   const { slug } = await params;
-  const destination = getDestinationDetailsBySlug(slug);
+  const destination = getDestination(slug);
 
   if (!destination) notFound();
 
@@ -341,7 +349,7 @@ export default async function DestinationDetailsPage({ params }: PageProps) {
           {destination.scholarships.length > 0 ? (
             <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {destination.scholarships.map((scholarship) => (
-                <a key={scholarship.name} href={scholarship.href} target="_blank" rel="noopener noreferrer" className="group rounded-2xl border border-slate-200 bg-white p-7 transition hover:-translate-y-1 hover:border-brand-500/60 hover:shadow-xl">
+                <a key={scholarship.id} href={scholarship.href} target="_blank" rel="noopener noreferrer" className="group rounded-2xl border border-slate-200 bg-white p-7 transition hover:-translate-y-1 hover:border-brand-500/60 hover:shadow-xl">
                   <Sparkles size={22} className="text-brand-600" />
                   <h3 className="mt-6 text-lg font-bold text-[#0B1D36] group-hover:text-brand-600">{scholarship.name}</h3>
                   <p className="mt-2 text-sm text-slate-500">{scholarship.university}</p>

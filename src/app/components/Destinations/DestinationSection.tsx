@@ -57,10 +57,11 @@ const DestinationSection = () => {
 
         {/* Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
-          {destinations.map((destination) => (
+          {destinations.map((destination, index) => (
             <DestinationCard
               key={destination.id}
               destination={destination}
+              index={index}
             />
           ))}
         </div>
