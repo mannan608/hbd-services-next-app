@@ -50,7 +50,7 @@ const steps = [
 ];
 
 const inputClass =
-    "h-12 w-full rounded-xl border border-slate-200 bg-white px-3.5 text-sm text-[#0B1D36] outline-none transition-all placeholder:text-slate-400 hover:border-[#C9A84C]/60 focus:border-[#C9A84C] focus:ring-4 focus:ring-[#C9A84C]/10";
+    "h-12 w-full rounded-xl border border-slate-200 placeholder:text-sm bg-white px-3.5 text-sm text-[#0B1D36] outline-none transition-all placeholder:text-slate-400 hover:border-[#C9A84C]/60 focus:border-[#C9A84C] focus:ring-4 focus:ring-[#C9A84C]/10";
 
 const labelClass =
     "mb-2 block text-[13px] font-semibold text-slate-700";
@@ -188,7 +188,7 @@ const ConsultationForm = () => {
                     value={formData[name] as string}
                     onChange={handleChange}
                     required
-                    className={`${inputClass} appearance-none pr-10 ${!formData[name] ? "text-slate-400" : ""
+                    className={`${inputClass} appearance-none pr-10 ${!formData[name] ? "text-slate-400 placeholder:text-sm" : ""
                         }`}
                 >
                     <option value="" disabled>

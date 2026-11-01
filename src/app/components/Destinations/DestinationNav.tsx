@@ -117,7 +117,7 @@ const DestinationNav = () => {
 
   return (
     <div
-      className={`sticky top-28 z-40 border-b border-slate-200 bg-white backdrop-blur-xl transition-shadow duration-300 md:top-30 ${
+      className={`sticky top-29 z-40 border-b border-slate-200 bg-white backdrop-blur-xl transition-shadow duration-300 md:top-32 ${
         stuck
           ? "shadow-[0_12px_32px_rgba(11,29,54,0.10)]"
           : "shadow-[0_1px_2px_rgba(11,29,54,0.04)]"

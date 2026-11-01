@@ -1,6 +1,6 @@
 "use client";
 
-import { Zap } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
 import DestinationCard from "./DestinationCard";
 
@@ -10,6 +10,7 @@ import unitedkingdom from "@/app/assets/destinations/united-kingdom.webp";
 import canada from "@/app/assets/destinations/canada.webp";
 import australia from "@/app/assets/destinations/australia.webp";
 import newZealand from "@/app/assets/destinations/new-zealand.webp";
+import Link from "next/link";
 
 
 const destinations = [
@@ -52,7 +53,7 @@ const destinations = [
   {
     "slug": "new-zealand",
     "name": "New Zealand",
-    "image":newZealand,
+    "image": newZealand,
     "hero": {
       "description": "Benefit from tuition-free or low-cost education at public universities with exceptional engineering and tech programs."
     },
@@ -82,9 +83,8 @@ const DestinationSection = () => {
         {/* Header */}
         <div
           ref={ref}
-          className={`mx-auto max-w-2xl py-12 text-center transition-all duration-700 ${
-            visible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
+          className={`mx-auto max-w-2xl py-12 text-center transition-all duration-700 ${visible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+            }`}
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-200/60 bg-brand-500/10 px-4 py-2">
             <Zap className="h-4 w-4 text-brand-500" />
@@ -115,6 +115,18 @@ const DestinationSection = () => {
               index={index}
             />
           ))}
+        </div>
+        <div className="flex justify-end mt-6">
+          <Link
+            href="/destinations"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-brand-500 transition-all duration-300 hover:gap-3 hover:text-brand-600"
+          >
+            <span className="transition-transform duration-300 group-hover:-translate-x-0.5">
+              View All Destinations
+            </span>
+
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1 group-hover:scale-110" />
+          </Link>
         </div>
       </div>
     </section>

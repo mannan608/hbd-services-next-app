@@ -283,7 +283,7 @@ const DestinationFilters = ({ destinations, regions }: Props) => {
                         {/* Search */}
                         <div
                             style={{ transitionDelay: "240ms" }}
-                            className={`mx-auto mt-10 max-w-3xl ${revealClass(entered)}`}
+                            className={`mx-auto mt-10 max-w-3xl mb-10 sm:mb-6 ${revealClass(entered)}`}
                         >
                             <div className="flex flex-col gap-2 rounded-2xl border border-white/20 bg-white p-2 shadow-2xl shadow-black/20 transition-shadow duration-300 focus-within:shadow-brand-500/20 sm:flex-row sm:items-center sm:rounded-full sm:p-2.5">
                                 <div className="flex min-w-0 flex-1 items-center gap-3 px-4">
@@ -327,7 +327,7 @@ const DestinationFilters = ({ destinations, regions }: Props) => {
                         {/* Hero details */}
                         <div
                             style={{ transitionDelay: "320ms" }}
-                            className={`mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-xs font-medium text-brand-100/80 sm:text-sm ${revealClass(entered)}`}
+                            className={`hidden sm:flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-xs font-medium text-brand-100/80 sm:text-sm ${revealClass(entered)}`}
                         >
                             <div className="flex items-center gap-2">
                                 <Globe2 className="h-4 w-4 text-accent-cyan" />
@@ -415,7 +415,7 @@ const DestinationFilters = ({ destinations, regions }: Props) => {
                                         type="button"
                                         onClick={() => setSelectedRegion(region)}
                                         aria-pressed={selectedRegion === region}
-                                        className={`shrink-0 rounded-xl px-4 py-2 text-xs font-medium transition-all duration-200 active:scale-[0.97] ${selectedRegion === region
+                                        className={`shrink-0 rounded-xl px-4 py-1.5 text-xs font-medium transition-all duration-200 active:scale-[0.97] ${selectedRegion === region
                                                 ? "bg-brand-500 text-white shadow-sm shadow-brand-500/20"
                                                 : "border border-neutral-200 bg-white text-neutral-600 hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600"
                                             }`}
