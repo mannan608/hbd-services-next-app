@@ -51,8 +51,8 @@ export default function FeaturesSection() {
           </span>
           <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
             Four steps to{" "}
-            <span className="text-red-600">
-              your future in Australia
+            <span className="text-brand-600">
+              your future
             </span>
           </h2>
         </div>
