@@ -1,14 +1,14 @@
-import AchieversVoices from "./components/achievers/AchieversVoices";
-import CertificationAwardsSection from "./components/certification-awards/CertificationAwardsSection";
-import DestinationSection from "./components/destinations/DestinationSection";
-import DigitalPlatformSection from "./components/digital-platform/DigitalPlatformSection";
+import AchieversVoices from "./components/home/achievers/AchieversVoices";
+import CertificationAwardsSection from "./components/home/certification-awards/CertificationAwardsSection";
+import DestinationSection from "./components/home/DestinationSection";
+import DigitalPlatformSection from "./components/home/digital-platform/DigitalPlatformSection";
 import ConsultationFormSection from "./components/forms/ConsultationFormSection";
-import FeaturesSection from "./components/hero/FeaturesSection";
-import HeroSection from "./components/hero/HeroSection";
-import LanguageAcademySection from "./components/language-academy/LanguageAcademySection";
+import FeaturesSection from "./components/home/hero/FeaturesSection";
+import HeroSection from "./components/home/hero/HeroSection";
+import LanguageAcademySection from "./components/home/language-academy/LanguageAcademySection";
 import UniversityMarqueeSection from "./components/patners/UniversityMarqueeSection";
 import ReviewsSection from "./components/reviews/ReviewsSection";
-import ServicesSection from "./components/services/ServicesSection";
+import ServicesSection from "./components/home/services/ServicesSection";
 
 export default function Home() {
   return (

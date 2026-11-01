@@ -2,7 +2,7 @@
 import { Metadata } from "next";
 import { ArrowRight, Zap } from "lucide-react";
 import { useInView } from "@/hooks/useInView";
-import DestinationCard from "./DestinationCard";
+import DestinationCard from "../destinations/DestinationCard";
 
 
 import Link from "next/link";
